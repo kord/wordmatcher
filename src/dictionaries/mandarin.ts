@@ -37,4 +37,4 @@ const testDict: [WordEntry, WordEntry][] = testWords.map(words => [
 //     [{lang: Lang.MandarinSimplified, word: '东西'}, {lang: Lang.English, word: 'thing'}],
 // ];
 
-export const MandarinDict = new MatcherDict(testDict);
+export const TestMandarinDict = new MatcherDict(testDict);

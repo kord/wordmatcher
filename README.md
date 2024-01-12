@@ -9,3 +9,6 @@ english and chinese words.
 [Command line util for simplified/traditional conversion](https://github.com/BYVoid/OpenCC)
 
 [Another, seemingly less Taiwanized tool for the same](https://github.com/berniey/hanziconv)
+
+### Wordlists
+[HSK](https://hsk.academy/en/hsk-6-vocabulary-list)

@@ -1,12 +1,12 @@
 import {Lang} from "./languages";
 
-type WordEntry = {
+export type WordEntry = {
     lang: Lang,
     word: string,
     definition?: string,
 }
 
-class MatcherDict {
+export class MatcherDict {
     lang1: Lang;
     lang2: Lang;
 

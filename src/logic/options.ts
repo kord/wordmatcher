@@ -1,4 +1,3 @@
-import {TestMandarinDict} from "../dictionaries/mandarin";
 import {MatcherDict} from "../dictionaries/matcherDict";
 
 export interface GameLength {
@@ -7,11 +6,8 @@ export interface GameLength {
 }
 
 export interface MatcherGameOptions {
-    dictionary?: MatcherDict,
-    gameLength?: GameLength,
+    dictionary: MatcherDict,
+    gameLength: GameLength,
+    optionCount: number,
 }
 
-export const defaultOptions: MatcherGameOptions = {
-    dictionary: TestMandarinDict,
-    gameLength: {count: 45, units: 'seconds'},
-}

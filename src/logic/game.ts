@@ -1,16 +1,9 @@
-import {MatcherDict} from "../dictionaries/matcherDict";
-import {TestMandarinDict} from "../dictionaries/mandarin";
-
-interface MatcherGameOptions {
-    dictionary: MatcherDict,
-
-}
-
-const defaultOptions : MatcherGameOptions = {
-    dictionary: TestMandarinDict,
-}
+import {MatcherGameOptions} from "./options";
 
 export class MatcherGame {
+    options: MatcherGameOptions;
+
     constructor(options: MatcherGameOptions) {
+        this.options = options;
     }
 }

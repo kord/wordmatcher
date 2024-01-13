@@ -10,16 +10,16 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 10%;
+  height: 40px;
   width: 100%;
 }
 
 .game-body {
   background-color: green;
   position: absolute;
-  top: 10%;
+  top: 40px;
   left: 0;
-  height: 90%;
+  height: calc(100% - 40px);
   width: 100%;
 }
 

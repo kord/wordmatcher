@@ -2,7 +2,7 @@ import {Lang} from "./languages";
 import {WordEntry} from "./matcherDict";
 import {MatcherDict} from "./matcherDict";
 
-const simpTradWords: [WordEntry, WordEntry][] =
+const simplifiedTraditionalWords: [WordEntry, WordEntry][] =
     [
         ['万', '萬'],
         ['与', '與'],
@@ -924,4 +924,4 @@ const simpTradWords: [WordEntry, WordEntry][] =
         {lang: Lang.ChineseSimplified, word: words[0]},
         {lang: Lang.ChineseTraditional, word: words[1]}]);
 
-export const simpTradDict = new MatcherDict(simpTradWords);
+export const simplifiedTraditionalDict = new MatcherDict(simplifiedTraditionalWords);

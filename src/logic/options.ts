@@ -1,6 +1,6 @@
 import {MatcherDict, WordEntry} from "../dictionaries/matcherDict";
 import {TestSimplifiedDict} from "../dictionaries/mandarin";
-import {simpTradDict} from "../dictionaries/simptrad";
+import {simplifiedTraditionalDict} from "../dictionaries/simptrad";
 
 export interface GameLength {
     count: number,
@@ -55,7 +55,7 @@ export const defaultOptions: MatcherGameOptions = {
 }
 
 export const defaultSimpTradOptions: MatcherGameOptions = {
-    dictionary: simpTradDict,
+    dictionary: simplifiedTraditionalDict,
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [

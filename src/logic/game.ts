@@ -1,5 +1,11 @@
-import {MatcherGameOptions} from "./options";
-import {TestMandarinDict} from "../dictionaries/mandarin";
+import {
+    defaultOptions,
+    MatcherGameOptions,
+    MatcherRoundData,
+    MatcherRoundObjective,
+    MatcherRoundRecord,
+    MatcherRoundResult
+} from "./options";
 import {WordEntry} from "../dictionaries/matcherDict";
 import {Lang} from "../dictionaries/languages";
 import {pinyin} from "pinyin-pro";
@@ -24,35 +30,51 @@ function shuffle(array: any[]) {
 }
 
 
-enum MatcherRoundObjective {
-    ChineseCharacterToEnglishWord = 1,
-    EnglishWordToChineseCharacter,
-    PinyinToChineseCharacter,
-    ChineseCharacterToPinyin
-}
-
-export interface MatcherRoundData {
-    hint: WordEntry,
-    answer: WordEntry,
-    options: WordEntry[],
-    answerIndex: number,
-}
-
-export const defaultOptions: MatcherGameOptions = {
-    dictionary: TestMandarinDict,
-    gameLength: {count: 45, units: 'seconds'},
-    optionCount: 4,
-}
-
-export class MatcherGame {
+export class MatcherGameLogic {
     options: MatcherGameOptions;
+    currentRound: MatcherRoundData;
+    roundHistory: MatcherRoundRecord[];
 
-
-    constructor(options: Partial<MatcherGameOptions>) {
+    constructor(options: Partial<MatcherGameOptions> = {}) {
         this.options = {...defaultOptions, ...options};
+        this.currentRound = this.getNewRandomRound();
+        this.roundHistory = [];
+
+        // Normalize the objective weightings to sum to 1.
+        let totalObjectiveWeight = 0;
+        this.options.objectives.forEach(o => totalObjectiveWeight += o.relativeWeight);
+        this.options.objectives.forEach(o => o.relativeWeight /= totalObjectiveWeight);
+
     }
 
-    nextRandomRound(objective: MatcherRoundObjective): MatcherRoundData {
+    private getRandomObjective(): MatcherRoundObjective {
+        const rand = Math.random();
+        let tot = 0;
+        const objectives = this.options.objectives;
+        for (let i = 0; i < objectives.length; i++) {
+            tot += objectives[i].relativeWeight;
+            if (rand < tot) return objectives[i].objective;
+        }
+        console.error('getRandomObjective failed for some stupid reason.');
+        return MatcherRoundObjective.ChineseCharacterToEnglishWord;
+    }
+
+    public guessForCurrentRound(choice: number) {
+        this.roundHistory.push({
+            data: this.currentRound,
+            userSelection: choice,
+            result: choice === this.currentRound.answerIndex ? MatcherRoundResult.Success : MatcherRoundResult.Failure,
+        });
+        this.currentRound = this.getNewRandomRound();
+    }
+
+    getNewRandomRound(): MatcherRoundData {
+        const nextObjective = this.getRandomObjective();
+        return this.getNewRound(nextObjective);
+    }
+
+    // This builds random rounds of the matcher game.
+    getNewRound(objective: MatcherRoundObjective): MatcherRoundData {
         const dict = this.options.dictionary;
         let ret: Partial<MatcherRoundData> = {};
         let hint: WordEntry;

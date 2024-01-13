@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/matcherGame.scss';
 import {MatcherGameLogic} from "../logic/game";
-import {MatcherRoundObjective} from "../logic/options";
+import {defaultSimpTradOptions, MatcherRoundObjective} from "../logic/options";
 
 interface MatcherGameProps {
 }
@@ -16,7 +16,7 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
         super(props);
         this.state = {
             gameActive: false,
-            game: new MatcherGameLogic(),
+            game: new MatcherGameLogic(defaultSimpTradOptions),
         };
     }
 

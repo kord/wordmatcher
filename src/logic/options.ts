@@ -1,5 +1,5 @@
 import {MatcherDict, WordEntry} from "../dictionaries/matcherDict";
-import {TestSimplifiedDict} from "../dictionaries/mandarin";
+import {TestSimplifiedDict, TestSimpTradDict} from "../dictionaries/mandarin";
 
 export interface GameLength {
     count: number,
@@ -50,5 +50,15 @@ export const defaultOptions: MatcherGameOptions = {
         {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: .25},
         {objective: MatcherRoundObjective.FirstLangToPinyin, relativeWeight: .25},
         {objective: MatcherRoundObjective.PinyinToFirstLang, relativeWeight: .25},
+    ]
+}
+
+export const defaultSimpTradOptions: MatcherGameOptions = {
+    dictionary: TestSimpTradDict,
+    gameLength: {count: 45, units: 'seconds'},
+    optionCount: 4,
+    objectives: [
+        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: .5},
+        {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: .5},
     ]
 }

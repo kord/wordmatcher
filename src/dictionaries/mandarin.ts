@@ -196,17 +196,19 @@ export function wordListToMatcherInput(wordList: [string, string][]) : [WordEntr
 //     [{lang: Lang.MandarinSimplified, word: '东西'}, {lang: Lang.English, word: 'thing'}],
 // ];
 
-export const TestSimplifiedDict = new MatcherDict(wordListToMatcherInput(testWords));
-
 function wordListToSimpTradMatcherDictInput(words: [string, string][]) {
-    const simp = words.map(pair => ({lang: Lang.ChineseSimplified, word: pair[0]}));
+    // Drop all of the english words.
+    const simpWords = words.map(pair => ({lang: Lang.ChineseSimplified, word: pair[0]}));
     const ret : [WordEntry, WordEntry][] = [];
-    simp.forEach(simp => {
+    // Prune the unchanged words.
+    simpWords.forEach(simp => {
         const trad = simplifiedToTwTraditional(simp);
         if (simp.word !== trad.word)
             ret.push([simp, trad])
-    })
+    });
     return ret;
 }
+
+export const TestSimplifiedDict = new MatcherDict(wordListToMatcherInput(testWords));
 
 export const TestSimpTradDict =  new MatcherDict(wordListToSimpTradMatcherDictInput(testWords))

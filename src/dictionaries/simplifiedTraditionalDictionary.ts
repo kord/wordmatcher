@@ -924,4 +924,4 @@ const simplifiedTraditionalWords: [WordEntry, WordEntry][] =
         {lang: Lang.ChineseSimplified, word: words[0]},
         {lang: Lang.ChineseTraditional, word: words[1]}]);
 
-export const simplifiedTraditionalDict = new MatcherDict(simplifiedTraditionalWords);
+export const simplifiedTraditionalDictionary = new MatcherDict(simplifiedTraditionalWords);

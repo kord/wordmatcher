@@ -1,5 +1,5 @@
 import {MatcherDict, WordEntry} from "../dictionaries/matcherDict";
-import {TestSimplifiedDict, TestSimpTradDict} from "../dictionaries/mandarin";
+import {TestSimplifiedDict} from "../dictionaries/mandarin";
 import {simpTradDict} from "../dictionaries/simptrad";
 
 export interface GameLength {

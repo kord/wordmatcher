@@ -14,3 +14,5 @@ english and chinese words.
 
 ### Wordlists
 [HSK](https://hsk.academy/en/hsk-6-vocabulary-list)
+
+[Simplified/Traditional characters](https://www.tutormandarin.net/en/list-of-different-simplified-and-traditional-characters/)

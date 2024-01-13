@@ -59,7 +59,7 @@ export class MatcherGameLogic {
         return MatcherRoundObjective.ChineseCharacterToEnglishWord;
     }
 
-    public guessForCurrentRound(choice: number) {
+    public applyGuessForCurrentRound(choice: number) {
         this.roundHistory.push({
             data: this.currentRound,
             userSelection: choice,

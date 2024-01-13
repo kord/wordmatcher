@@ -180,7 +180,7 @@ const testWords: [string, string][] = [['爱', 'to love; affection; to be fond o
 // ];
 
 const testDict: [WordEntry, WordEntry][] = testWords.map(words => [
-    {lang: Lang.MandarinSimplified, word: words[0]},
+    {lang: Lang.ChineseSimplified, word: words[0]},
     {lang: Lang.English, word: words[1]}]);
 // [
 //     [{lang: Lang.MandarinSimplified, word: '爱'}, {lang: Lang.English, word: 'love'}],

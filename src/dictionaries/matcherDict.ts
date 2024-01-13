@@ -40,6 +40,5 @@ export class MatcherDict {
         const index = Math.floor(Math.random() * this.entries.length);
         return this.entries[index];
     }
-
-
 }
+

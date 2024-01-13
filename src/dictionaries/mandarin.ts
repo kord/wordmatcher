@@ -211,4 +211,4 @@ function wordListToSimpTradMatcherDictInput(words: [string, string][]) {
 
 export const TestSimplifiedDict = new MatcherDict(wordListToMatcherInput(testWords));
 
-export const TestSimpTradDict =  new MatcherDict(wordListToSimpTradMatcherDictInput(testWords))
+// export const TestSimpTradDict =  new MatcherDict(wordListToSimpTradMatcherDictInput(testWords))

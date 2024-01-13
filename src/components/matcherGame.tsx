@@ -23,7 +23,7 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
 
 
     render() {
-        const tempGame = this.state.game.getNewRound(MatcherRoundObjective.ChineseCharacterToEnglishWord)
+        const tempGame = this.state.game.getNewRound(MatcherRoundObjective.FirstLangToSecondLang)
 
         return (
             <div className={'matcher-game'}>

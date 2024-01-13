@@ -56,7 +56,7 @@ export class MatcherGameLogic {
             if (rand < tot) return objectives[i].objective;
         }
         console.error('getRandomObjective failed for some stupid reason.');
-        return MatcherRoundObjective.ChineseCharacterToEnglishWord;
+        return MatcherRoundObjective.FirstLangToSecondLang;
     }
 
     public applyGuessForCurrentRound(choice: number) {
@@ -87,7 +87,7 @@ export class MatcherGameLogic {
         // TODO: Mess with the probabilities, probably in a heavy server, so that the puzzles can be made hard or
         //  easy, and enforce arbitrary distributional criteria.
         switch (objective) {
-            case MatcherRoundObjective.ChineseCharacterToEnglishWord:
+            case MatcherRoundObjective.FirstLangToSecondLang:
                 pair = dict.random();
                 hint = pair[0];
                 answer = pair[1];
@@ -98,7 +98,7 @@ export class MatcherGameLogic {
                         options.push(next);
                 }
                 break;
-            case MatcherRoundObjective.EnglishWordToChineseCharacter:
+            case MatcherRoundObjective.SecondLangToFirstLang:
                 pair = dict.random();
                 hint = pair[1];
                 answer = pair[0];
@@ -109,7 +109,7 @@ export class MatcherGameLogic {
                         options.push(next);
                 }
                 break;
-            case MatcherRoundObjective.ChineseCharacterToPinyin:
+            case MatcherRoundObjective.FirstLangToPinyin:
                 pair = dict.random();
                 hint = pair[0];
                 answer = {lang: Lang.Pinyin, word: pinyin(hint.word)};
@@ -120,7 +120,7 @@ export class MatcherGameLogic {
                         options.push({lang: Lang.Pinyin, word: next});
                 }
                 break;
-            case MatcherRoundObjective.PinyinToChineseCharacter:
+            case MatcherRoundObjective.PinyinToFirstLang:
                 pair = dict.random();
                 hint = {lang: Lang.Pinyin, word: pinyin(pair[0].word)};
                 answer = pair[0];

@@ -1,6 +1,5 @@
 import {Lang} from "./languages";
 import {WordEntry} from "./matcherDict";
-
 const OpenCC = require('opencc-js');
 
 const twConverter = OpenCC.Converter({ from: 'cn', to: 'tw' });

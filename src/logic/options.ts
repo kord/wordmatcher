@@ -1,5 +1,5 @@
 import {MatcherDict, WordEntry} from "../dictionaries/matcherDict";
-import {TestMandarinDict} from "../dictionaries/mandarin";
+import {TestSimplifiedDict} from "../dictionaries/mandarin";
 
 export interface GameLength {
     count: number,
@@ -17,10 +17,10 @@ export interface MatcherGameOptions {
 }
 
 export enum MatcherRoundObjective {
-    EnglishWordToChineseCharacter,
-    ChineseCharacterToEnglishWord,
-    ChineseCharacterToPinyin,
-    PinyinToChineseCharacter,
+    SecondLangToFirstLang,
+    FirstLangToSecondLang,
+    FirstLangToPinyin,
+    PinyinToFirstLang,
 }
 
 export enum MatcherRoundResult {
@@ -42,13 +42,13 @@ export interface MatcherRoundRecord {
 }
 
 export const defaultOptions: MatcherGameOptions = {
-    dictionary: TestMandarinDict,
+    dictionary: TestSimplifiedDict,
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [
-        {objective: MatcherRoundObjective.EnglishWordToChineseCharacter, relativeWeight: .25},
-        {objective: MatcherRoundObjective.ChineseCharacterToEnglishWord, relativeWeight: .25},
-        {objective: MatcherRoundObjective.ChineseCharacterToPinyin, relativeWeight: .25},
-        {objective: MatcherRoundObjective.PinyinToChineseCharacter, relativeWeight: .25},
+        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: .25},
+        {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: .25},
+        {objective: MatcherRoundObjective.FirstLangToPinyin, relativeWeight: .25},
+        {objective: MatcherRoundObjective.PinyinToFirstLang, relativeWeight: .25},
     ]
 }

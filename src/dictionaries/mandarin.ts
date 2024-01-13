@@ -2,6 +2,7 @@ import {pinyin} from 'pinyin-pro';
 import {MatcherDict, WordEntry} from "./matcherDict";
 import {Lang} from "./languages";
 import {MatcherGameLogic} from "../logic/game";
+import {simplifiedToTwTraditional} from "./traditionalSimplifiedConverter";
 
 
 export {}
@@ -179,9 +180,14 @@ const testWords: [string, string][] = [['爱', 'to love; affection; to be fond o
 //     ['会', 'can'],
 // ];
 
-const testDict: [WordEntry, WordEntry][] = testWords.map(words => [
-    {lang: Lang.ChineseSimplified, word: words[0]},
-    {lang: Lang.English, word: words[1]}]);
+export function wordListToMatcherInput(wordList: [string, string][]) : [WordEntry, WordEntry][] {
+    return wordList.map(words => [
+        {lang: Lang.ChineseSimplified, word: words[0]},
+        {lang: Lang.English, word: words[1]}]);
+}
+
+// export function matcherInputSimplifiedToTraditional
+
 // [
 //     [{lang: Lang.MandarinSimplified, word: '爱'}, {lang: Lang.English, word: 'love'}],
 //     [{lang: Lang.MandarinSimplified, word: '八'}, {lang: Lang.English, word: 'eight'}],
@@ -190,5 +196,17 @@ const testDict: [WordEntry, WordEntry][] = testWords.map(words => [
 //     [{lang: Lang.MandarinSimplified, word: '东西'}, {lang: Lang.English, word: 'thing'}],
 // ];
 
-export const TestMandarinDict = new MatcherDict(testDict);
+export const TestSimplifiedDict = new MatcherDict(wordListToMatcherInput(testWords));
 
+function wordListToSimpTradMatcherDictInput(words: [string, string][]) {
+    const simp = words.map(pair => ({lang: Lang.ChineseSimplified, word: pair[0]}));
+    const ret : [WordEntry, WordEntry][] = [];
+    simp.forEach(simp => {
+        const trad = simplifiedToTwTraditional(simp);
+        if (simp.word !== trad.word)
+            ret.push([simp, trad])
+    })
+    return ret;
+}
+
+export const TestSimpTradDict =  new MatcherDict(wordListToSimpTradMatcherDictInput(testWords))

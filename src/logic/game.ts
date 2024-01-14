@@ -115,21 +115,22 @@ export class MatcherGameLogic {
                 answer = {lang: Lang.Pinyin, word: pinyin(hint.word)};
                 options = [answer];
                 while (options.length < this.options.optionCount) {
-                    const next = pinyin(dict.random()[0].word);
+                    const next = pinyin(dict.randomLength(hint.lang, hint.word.length).word);
                     if (options.every(opt => opt.word !== next))
                         options.push({lang: Lang.Pinyin, word: next});
                 }
                 break;
             case MatcherRoundObjective.PinyinToFirstLang:
                 pair = dict.random();
+                const sourceLang = pair[0].lang;
                 hint = {lang: Lang.Pinyin, word: pinyin(pair[0].word)};
                 answer = pair[0];
                 options = [answer];
 
                 while (options.length < this.options.optionCount) {
-                    const next = dict.random()[0];
-                    if (pinyin(next.word) !== hint.word)
-                        options.push(next);
+                    const next = dict.randomLength(sourceLang, pair[0].word.length).word;
+                    if (options.every(opt => opt.word !== next))
+                        options.push({lang: Lang.Pinyin, word: next});
                 }
                 break;
         }

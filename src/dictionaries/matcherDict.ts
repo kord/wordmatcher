@@ -53,6 +53,18 @@ export class MatcherDict {
         MatcherDict.insertLength(b, this.l2length);
     }
 
+    randomLength = (lang: Lang, length: number) => {
+        let table : Map<number, WordEntry[]>;
+        if (lang === this.lang1) table = this.l1length;
+        else if (lang === this.lang2) table = this.l2length;
+        else console.assert(false, 'randomLength called for absent language.');
+
+        const list = table!.get(length)!;
+        console.assert(list.length > 4);
+        const index = Math.floor(Math.random() * list.length);
+        return list[index];
+    }
+
     random = () => {
         const index = Math.floor(Math.random() * this.entries.length);
         return this.entries[index];

@@ -19,7 +19,7 @@ export class MatcherDict {
     l2length: Map<number, WordEntry[]>;
 
     constructor(entries: Array<[WordEntry, WordEntry]>) {
-        console.assert(entries.length > 0, 'Cannot initialize dictionary with length 0 word list.');
+        console.assert(entries.length > 10, 'Cannot initialize dictionary with a very short word list.');
         this.entries = entries;
         this.lang1 = entries[0][0].lang;
         this.lang2 = entries[0][1].lang;
@@ -31,6 +31,15 @@ export class MatcherDict {
 
         entries.forEach((entry, index) => {
             this.addPair(entry[0], entry[1]);
+            MatcherDict.insertLength(entry[0], this.l1length);
+            MatcherDict.insertLength(entry[1], this.l2length);
+        });
+
+        // Give notice at initialization if there are uncomfortably few entries for some length of words.
+        // This is relevant for chinese since pinyin matching tries to find entries with the same length and we
+        // need enough entries to populate the options.
+        this.l1length.forEach((k, v) => {
+            if (k.length < 10) console.error(`Length ${v} of lang ${k[0].lang} only has ${k.length} entries.`);
         });
     }
 
@@ -49,8 +58,6 @@ export class MatcherDict {
         this.l1word.set(a.word, b);
         this.l2word.set(b.word, a);
 
-        MatcherDict.insertLength(a, this.l1length);
-        MatcherDict.insertLength(b, this.l2length);
     }
 
     randomLength = (lang: Lang, length: number) => {

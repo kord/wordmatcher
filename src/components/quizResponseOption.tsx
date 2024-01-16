@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {WordEntry} from "../dictionaries/matcherDict";
+import {Lang} from "../dictionaries/languages";
 
 
 // Borrowed from https://stackoverflow.com/questions/58704990/calculate-pixel-width-of-text-without-knowing-font-in-react-javascript
@@ -30,7 +31,7 @@ export class QuizResponseOption extends Component<QuizResponseOptionProps, QuizR
 
     render() {
         return (
-            <div className={'quiz-response-option'}
+            <div className={`quiz-response-option quiz-response-option${Lang[this.props.entry.lang]}`}
                  key={this.props.optionNumber}
                  onClick={() => this.props.onClick(this.props.optionNumber)}
                  style={{

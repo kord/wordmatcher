@@ -4,10 +4,15 @@ import './css/index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import {init} from "./init";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+// Do all of the initialization steps we want.
+init();
+
 root.render(
   <React.StrictMode>
     <App />

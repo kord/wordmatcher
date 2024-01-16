@@ -9,12 +9,12 @@ import MatcherGame from "./components/matcherGame";
 
 // Some initialization stuff to do before loading the app.
 const initialize = () => {
-    for (let i = 0; i < 4; i++) {
-        const m = new MatcherGameLogic();
-        const round = m.getNewRound(i);
-        console.log(round);
-        console.log("")
-    }
+    // const m = new MatcherGameLogic();
+    // for (let i = 100; i < 104; i++) {
+    //     const round = m.getNewRound(i);
+    //     console.log(round);
+    //     console.log("")
+    // }
 }
 
 function App() {
@@ -22,10 +22,9 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
+                {/*<img src={logo} className="App-logo" alt="logo"/>*/}
 
                 <MatcherGame/>
-
 
             </header>
         </div>

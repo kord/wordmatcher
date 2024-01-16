@@ -13,17 +13,17 @@ function getTextWidth(text:string, font:string) {
 }
 
 
-interface UserSelectionBoxProps {
+interface QuizResponseOptionProps {
     entry: WordEntry,
     onClick: (i:number)=>void,
     optionNumber: number,
 }
 
-interface UserSelectionBoxState {
+interface QuizResponseOptionState {
 }
 
-export class UserSelectionBox extends Component<UserSelectionBoxProps, UserSelectionBoxState> {
-    constructor(props: UserSelectionBoxProps) {
+export class QuizResponseOption extends Component<QuizResponseOptionProps, QuizResponseOptionState> {
+    constructor(props: QuizResponseOptionProps) {
         super(props);
         this.state = {};
     }
@@ -35,7 +35,7 @@ export class UserSelectionBox extends Component<UserSelectionBoxProps, UserSelec
                  onClick={() => this.props.onClick(this.props.optionNumber)}
                  style={{
                      '--character-count': this.props.entry.word.length,
-                     '--string-width': 5,
+                     '--string-width': getTextWidth(this.props.entry.word, 'Times New Roman'),
             } as React.CSSProperties}>
                 {this.props.entry.word}
                 {/*{getTextWidth(this.props.entry.word, 'Times New Roman')}*/}

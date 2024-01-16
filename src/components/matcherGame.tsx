@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import '../css/matcherGame.scss';
 import {MatcherGameLogic} from "../logic/game";
 import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../logic/options";
+import CSS from "csstype";
+import {OptionBox} from "./optionBox";
+
 
 interface MatcherGameProps {
 }
@@ -21,10 +24,13 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
         };
     }
 
+    selectOption = (i: number) => {
+        this.state.game.applyGuessForCurrentRound(i);
+        this.forceUpdate();
+    }
 
 
     render() {
-        const tempGame = this.state.game.getNewRound(MatcherRoundObjective.FirstLangToSecondLang)
 
         return (
             <div className={'matcher-game'}>
@@ -39,14 +45,12 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
                         Matcher Game!
                     </p>
 
-                    <div className={'quiz-hint'}>{tempGame.hint.word}</div>
+                    <div className={'quiz-hint'}>{this.state.game.currentRound.hint.word}</div>
                     <div className={'quiz-response-panel'}>
                         <div className={'quiz-response-grid'}>
-
-                            {tempGame.options.map((option, i) =>
-                                <div className={'quiz-response-option'} key={i}>
-                                    {option.word}
-                                </div>)}
+                            {this.state.game.currentRound.options.map((option, i) =>
+                                <OptionBox word={option} onClick={this.selectOption} optionNumber={i}/>
+                            )}
 
                         </div>
                     </div>

@@ -1,8 +1,6 @@
 
-
-
 .matcher-game {
-
+  --options-bar__height: 30px;
 }
 
 .options-bar {
@@ -10,14 +8,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 40px;
+  height: var(--options-bar__height);
   width: 100%;
 }
 
 .game-body {
   background-color: green;
   position: absolute;
-  top: 40px;
+  top: var(--options-bar__height);
   left: 0;
   height: calc(100% - 40px);
   width: 100%;
@@ -25,6 +23,15 @@
 
 .quiz-hint {
   font-size: clamp(16px, 20vw, 220px);
+
+
+  margin-inline: auto;
+  width: min(80vw, 1000px);
+
+  border: black solid medium;
+  border-radius: 15px;
+
+  margin-bottom: 20px;
 
   color: black;
 }
@@ -38,6 +45,7 @@
   border: 3px solid hotpink;
 
 }
+
 .quiz-response-grid {
   // The content width you use on your website
   --content-width: 80vw;
@@ -64,7 +72,16 @@
 }
 
 .quiz-response-option {
+  // --character-count: 2;
+
   border: black solid medium;
   border-radius: 15px;
-  font-size: 15px;
+
+  font-size: calc(var(--row-size) / clamp(1, var(--character-count) * 1.35, 10));
+
+  align-content: space-evenly;
+}
+
+.quiz-response-option:hover {
+  background-color: darkblue;
 }

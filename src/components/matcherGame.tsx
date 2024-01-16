@@ -3,7 +3,7 @@ import '../css/matcherGame.scss';
 import {MatcherGameLogic} from "../logic/game";
 import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../logic/options";
 import CSS from "csstype";
-import {OptionBox} from "./optionBox";
+import {UserSelectionBox} from "./userSelectionBox";
 
 
 interface MatcherGameProps {
@@ -49,7 +49,7 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
                     <div className={'quiz-response-panel'}>
                         <div className={'quiz-response-grid'}>
                             {this.state.game.currentRound.options.map((option, i) =>
-                                <OptionBox entry={option} onClick={this.selectOption} optionNumber={i}/>
+                                <UserSelectionBox entry={option} onClick={this.selectOption} optionNumber={i}/>
                             )}
 
                         </div>

@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import {WordEntry} from "../dictionaries/matcherDict";
 
 
+
 interface OptionBoxProps {
-    word: WordEntry,
+    entry: WordEntry,
     onClick: (i:number)=>void,
     optionNumber: number,
 }
@@ -22,8 +23,11 @@ export class OptionBox extends Component<OptionBoxProps, OptionBoxState> {
             <div className={'quiz-response-option'}
                  key={this.props.optionNumber}
                  onClick={() => this.props.onClick(this.props.optionNumber)}
-                 style={{'--character-count': this.props.word.word.length} as React.CSSProperties}>
-                {this.props.word.word}
+                 style={{
+                     '--character-count': this.props.entry.word.length,
+                     '--string-width': 5,
+            } as React.CSSProperties}>
+                {this.props.entry.word}
             </div>);
     }
 }

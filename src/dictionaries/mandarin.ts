@@ -32,7 +32,7 @@ export {}
 // ];
 
 // We want to trim a long definition down into just the first section before the ';' character.
-// This is a bit of a cheap hack and maybe we should be manually editing the wordlists.
+// This is a bit of a cheap hack, and maybe we should be manually editing the wordlists.
 function shortDefinition(w: string) {
     const loc = w.search(';')
     if (loc > 1) return w.substring(0, loc);
@@ -44,16 +44,6 @@ export function wordListToMatcherInput(wordList: [string, string][]): [WordEntry
         {lang: Lang.ChineseSimplified, word: words[0]},
         {lang: Lang.English, word: shortDefinition(words[1]), definition: words[1]}]);
 }
-
-// export function matcherInputSimplifiedToTraditional
-
-// [
-//     [{lang: Lang.MandarinSimplified, word: '爱'}, {lang: Lang.English, word: 'love'}],
-//     [{lang: Lang.MandarinSimplified, word: '八'}, {lang: Lang.English, word: 'eight'}],
-//     [{lang: Lang.MandarinSimplified, word: '不'}, {lang: Lang.English, word: 'not'}],
-//     [{lang: Lang.MandarinSimplified, word: '吃'}, {lang: Lang.English, word: 'eat'}],
-//     [{lang: Lang.MandarinSimplified, word: '东西'}, {lang: Lang.English, word: 'thing'}],
-// ];
 
 function wordListToSimpTradMatcherDictInput(words: [string, string][]) {
     // Drop all of the english words.
@@ -69,5 +59,3 @@ function wordListToSimpTradMatcherDictInput(words: [string, string][]) {
 }
 
 export const TestSimplifiedDict = new MatcherDict(wordListToMatcherInput(hsk1Wordlist));
-
-// export const TestSimpTradDict =  new MatcherDict(wordListToSimpTradMatcherDictInput(testWords))

@@ -2,18 +2,28 @@ import React, {Component} from "react";
 import {WordEntry} from "../dictionaries/matcherDict";
 
 
+// Borrowed from https://stackoverflow.com/questions/58704990/calculate-pixel-width-of-text-without-knowing-font-in-react-javascript
+function getTextWidth(text:string, font:string) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
 
-interface OptionBoxProps {
+    context!.font = font || getComputedStyle(document.body).font;
+
+    return context!.measureText(text).width;
+}
+
+
+interface UserSelectionBoxProps {
     entry: WordEntry,
     onClick: (i:number)=>void,
     optionNumber: number,
 }
 
-interface OptionBoxState {
+interface UserSelectionBoxState {
 }
 
-export class OptionBox extends Component<OptionBoxProps, OptionBoxState> {
-    constructor(props: OptionBoxProps) {
+export class UserSelectionBox extends Component<UserSelectionBoxProps, UserSelectionBoxState> {
+    constructor(props: UserSelectionBoxProps) {
         super(props);
         this.state = {};
     }
@@ -28,6 +38,7 @@ export class OptionBox extends Component<OptionBoxProps, OptionBoxState> {
                      '--string-width': 5,
             } as React.CSSProperties}>
                 {this.props.entry.word}
+                {/*{getTextWidth(this.props.entry.word, 'Times New Roman')}*/}
             </div>);
     }
 }

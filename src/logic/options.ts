@@ -48,7 +48,7 @@ export const defaultOptions: MatcherGameOptions = {
     optionCount: 4,
     objectives: [
         {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: 1},
-        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: 0},
+        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: 1},
         {objective: MatcherRoundObjective.FirstLangToPinyin, relativeWeight: .25},
         {objective: MatcherRoundObjective.PinyinToFirstLang, relativeWeight: .25},
     ]

@@ -183,7 +183,7 @@ const testWords: [string, string][] = [['爱', 'to love; affection; to be fond o
 export function wordListToMatcherInput(wordList: [string, string][]) : [WordEntry, WordEntry][] {
     return wordList.map(words => [
         {lang: Lang.ChineseSimplified, word: words[0]},
-        {lang: Lang.English, word: words[1]}]);
+        {lang: Lang.English, word: words[1].substring(0, words[1].search(';')), definition: words[1]}]);
 }
 
 // export function matcherInputSimplifiedToTraditional

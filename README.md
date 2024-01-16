@@ -3,6 +3,8 @@
 The plan is to make this a simple little game matching
 english and chinese words.
 
+Trashy provisional logo from [Brandcrowd](https://www.brandcrowd.com)
+
 ### Libraries
 [Pinyin](https://github.com/zh-lx/pinyin-pro)
 

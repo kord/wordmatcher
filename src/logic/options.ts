@@ -18,7 +18,7 @@ export interface MatcherGameOptions {
 }
 
 export enum MatcherRoundObjective {
-    SecondLangToFirstLang,
+    SecondLangToFirstLang = 100,
     FirstLangToSecondLang,
     FirstLangToPinyin,
     PinyinToFirstLang,
@@ -47,8 +47,8 @@ export const defaultOptions: MatcherGameOptions = {
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [
-        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: .25},
-        {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: .25},
+        {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: 1},
+        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: 0},
         {objective: MatcherRoundObjective.FirstLangToPinyin, relativeWeight: .25},
         {objective: MatcherRoundObjective.PinyinToFirstLang, relativeWeight: .25},
     ]
@@ -59,7 +59,7 @@ export const defaultSimpTradOptions: MatcherGameOptions = {
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [
-        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: .5},
+        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: 1.5},
         {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: .5},
     ]
 }

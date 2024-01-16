@@ -37,7 +37,6 @@ export class MatcherGameLogic {
 
     constructor(options: Partial<MatcherGameOptions> = {}) {
         this.options = {...defaultOptions, ...options};
-        this.currentRound = this.getNewRandomRound();
         this.roundHistory = [];
 
         // Normalize the objective weightings to sum to 1.
@@ -45,6 +44,8 @@ export class MatcherGameLogic {
         this.options.objectives.forEach(o => totalObjectiveWeight += o.relativeWeight);
         this.options.objectives.forEach(o => o.relativeWeight /= totalObjectiveWeight);
 
+        this.currentRound = this.getNewRandomRound();
+        console.log(this.options.objectives);
     }
 
     private getRandomObjective(): MatcherRoundObjective {
@@ -53,7 +54,9 @@ export class MatcherGameLogic {
         const objectives = this.options.objectives;
         for (let i = 0; i < objectives.length; i++) {
             tot += objectives[i].relativeWeight;
-            if (rand < tot) return objectives[i].objective;
+            if (rand < tot) {
+                return objectives[i].objective;
+            }
         }
         console.error('getRandomObjective failed for some stupid reason.');
         return MatcherRoundObjective.FirstLangToSecondLang;
@@ -68,13 +71,14 @@ export class MatcherGameLogic {
         this.currentRound = this.getNewRandomRound();
     }
 
-    getNewRandomRound(): MatcherRoundData {
+    private getNewRandomRound(): MatcherRoundData {
         const nextObjective = this.getRandomObjective();
+        // console.log(`next objective is ${nextObjective}`);
         return this.getNewRound(nextObjective);
     }
 
     // This builds random rounds of the matcher game.
-    getNewRound(objective: MatcherRoundObjective): MatcherRoundData {
+    private getNewRound(objective: MatcherRoundObjective): MatcherRoundData {
         const dict = this.options.dictionary;
         let ret: Partial<MatcherRoundData> = {};
         let hint: WordEntry;

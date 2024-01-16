@@ -31,7 +31,7 @@ export class QuizResponseOption extends Component<QuizResponseOptionProps, QuizR
 
     render() {
         return (
-            <div className={`quiz-response-option quiz-response-option${Lang[this.props.entry.lang]}`}
+            <div className={`quiz-response-option quiz-response-option__${Lang[this.props.entry.lang]}`}
                  key={this.props.optionNumber}
                  onClick={() => this.props.onClick(this.props.optionNumber)}
                  style={{

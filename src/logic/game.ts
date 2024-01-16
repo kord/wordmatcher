@@ -134,7 +134,7 @@ export class MatcherGameLogic {
                 while (options.length < this.options.optionCount) {
                     const next = dict.randomLength(sourceLang, pair[0].word.length).word;
                     if (options.every(opt => opt.word !== next))
-                        options.push({lang: Lang.Pinyin, word: next});
+                        options.push({lang: sourceLang, word: next});
                 }
                 break;
         }

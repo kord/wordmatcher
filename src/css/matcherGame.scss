@@ -24,7 +24,6 @@
 .quiz-hint {
   font-size: clamp(16px, 20vw, 220px);
 
-
   margin-inline: auto;
   width: min(80vw, 1000px);
 
@@ -42,7 +41,7 @@
 
   margin-inline: auto;
   width: min(80vw, 1000px);
-  border: 3px solid hotpink;
+  //border: 3px solid hotpink;
 
 }
 
@@ -78,10 +77,21 @@
   border: black solid medium;
   border-radius: 15px;
 
-  font-size: calc(var(--row-size) / clamp(1, var(--character-count) * 1.35, 10));
   cursor: pointer;
 
+  //
+
   align-content: space-evenly;
+}
+
+.quiz-response-option.quiz-response-option__ChineseSimplified,
+.quiz-response-option.quiz-response-option__ChineseTraditional {
+  font-size: calc(var(--row-size) / clamp(1, var(--character-count) * 1.35, 10));
+}
+
+.quiz-response-option.quiz-response-option__English,
+.quiz-response-option.quiz-response-option__Pinyin {
+  font-size: clamp(5vw, calc(7 * var(--row-size) / var(--string-width)), 32vw);
 }
 
 .quiz-response-option:hover {

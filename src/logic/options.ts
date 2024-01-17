@@ -1,6 +1,7 @@
 import {MatcherDict, WordEntry} from "../dictionaries/matcherDict";
-import {TestSimplifiedDict} from "../dictionaries/mandarin";
 import {simplifiedTraditionalDictionary} from "../dictionaries/simplifiedTraditionalDictionary";
+import {getHskMatcherDict} from "../dictionaries/dictionaryUtilities";
+import {HskLevel} from "../dictionaries/languages";
 
 export interface GameLength {
     count: number,
@@ -43,7 +44,7 @@ export interface MatcherRoundRecord {
 }
 
 export const defaultOptions: MatcherGameOptions = {
-    dictionary: TestSimplifiedDict,
+    dictionary: getHskMatcherDict(HskLevel.HSK1),
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [
@@ -59,7 +60,7 @@ export const defaultSimpTradOptions: MatcherGameOptions = {
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [
-        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: 1.5},
+        {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: .5},
         {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: .5},
     ]
 }

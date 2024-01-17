@@ -2,6 +2,8 @@ import {Lang} from "./languages";
 import {WordEntry} from "./matcherDict";
 import {MatcherDict} from "./matcherDict";
 
+// This is a complete list of the changes between traditional and simplified.
+// This can be used for a matching game and is of general interest.
 const simplifiedTraditionalWords: [WordEntry, WordEntry][] =
     [
         ['万', '萬'],

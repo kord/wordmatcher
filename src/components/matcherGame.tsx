@@ -49,7 +49,11 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
                     <div className={'quiz-response-panel'}>
                         <div className={'quiz-response-grid'}>
                             {this.state.game.currentRound.options.map((option, i) =>
-                                <QuizResponseOption entry={option} onClick={this.selectOption} optionNumber={i}/>
+                                <QuizResponseOption
+                                    entry={option}
+                                    onClick={this.selectOption}
+                                    optionNumber={i}
+                                    key={i}/>
                             )}
 
                         </div>

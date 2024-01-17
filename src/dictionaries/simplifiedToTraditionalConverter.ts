@@ -11,5 +11,6 @@ export const simplifiedToTwTraditional = (word: WordEntry) => {
     return {
         word: twConverter(word.word),
         lang: Lang.ChineseTraditional,
-    }
+        definition: word.definition,
+    } as WordEntry;
 }

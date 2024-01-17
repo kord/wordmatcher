@@ -2,7 +2,7 @@ import {pinyin} from 'pinyin-pro';
 import {MatcherDict, WordEntry} from "./matcherDict";
 import {Lang} from "./languages";
 import {MatcherGameLogic} from "../logic/game";
-import {simplifiedToTwTraditional} from "./traditionalSimplifiedConverter";
+import {simplifiedToTwTraditional} from "./simplifiedToTraditionalConverter";
 import * as cluster from "cluster";
 import {hsk1Wordlist} from "../wordlists/hsk1";
 
@@ -46,7 +46,7 @@ export function wordListToMatcherInput(wordList: [string, string][]): [WordEntry
 }
 
 function wordListToSimpTradMatcherDictInput(words: [string, string][]) {
-    // Drop all of the english words.
+    // Drop all of the english words in the 2nd place.
     const simpWords = words.map(pair => ({lang: Lang.ChineseSimplified, word: pair[0]}));
     const ret: [WordEntry, WordEntry][] = [];
     // Prune the unchanged words.

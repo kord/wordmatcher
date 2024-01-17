@@ -18,3 +18,7 @@ Trashy provisional logo from [Brandcrowd](https://www.brandcrowd.com)
 [HSK](https://hsk.academy/en/hsk-6-vocabulary-list)
 
 [Simplified/Traditional characters](https://www.tutormandarin.net/en/list-of-different-simplified-and-traditional-characters/)
+
+[Jun Da's Modern Chinese Character Frequency List Spreadsheet](https://docs.google.com/spreadsheets/d/1b4V0k0h5n_ey7IHogO8741lM6dxnpri3z3KIxs6sqGA/edit?usp=sharing)
+
+[^Web version](http://hanzidb.org/character-list/by-frequency?page=50)

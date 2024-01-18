@@ -11,18 +11,28 @@ interface OptionsPanelState {
     hskLevel: HskLevel,
     includeLowerHskLevels: boolean,
     characterType: string,
+    gameDurationType: string,
+    gameDurationQuestions: number,
+    gameDurationTimeSeconds: number,
 }
 
 const storedNames = {
     hskLevel: 'options-hskLevel',
     includeLowerHskLevels: 'options-includeLowerHskLevels',
     characterType: 'options-characterType',
+    gameDurationType: 'options-gameDurationType',
+    gameDurationQuestions: 'options-gameDurationQuestions',
+    gameDurationTimeSeconds: 'options-gameDurationTimeSeconds',
+
 }
 
 const defaultValues = {
     hskLevel: HskLevel.HSK1,
     includeLowerHskLevels: false,
     characterType: 'tw',
+    gameDurationType: 'time',
+    gameDurationQuestions: 30,
+    gameDurationTimeSeconds: 45,
 }
 
 
@@ -33,6 +43,10 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
             hskLevel: getStoredNumber(storedNames.hskLevel) as HskLevel || defaultValues.hskLevel,
             includeLowerHskLevels: getStoredBool(storedNames.includeLowerHskLevels) || defaultValues.includeLowerHskLevels,
             characterType: getStoredValue(storedNames.characterType) || defaultValues.characterType,
+            gameDurationType: getStoredValue(storedNames.gameDurationType) || defaultValues.gameDurationType,
+            gameDurationQuestions: getStoredNumber(storedNames.gameDurationQuestions) || defaultValues.gameDurationQuestions,
+            gameDurationTimeSeconds: getStoredNumber(storedNames.gameDurationTimeSeconds) || defaultValues.gameDurationTimeSeconds,
+
         };
     }
 
@@ -55,12 +69,28 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({characterType: newValue}, this.saveOptions);
     }
 
+    handleGameDurationTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
+        const newValue = ff.target.value;
+        this.setState({gameDurationType: newValue}, this.saveOptions);
+    }
+
     render() {
         return (
             <div className={'options-panel'}>
                 <div className={'options-panel__flex'}>
                     <p className={'options-panel__section-name'}>Game Length</p>
                     <div className={'options-panel__section'}>
+                        <label><input type="radio" value="questions"
+                               checked={this.state.gameDurationType === 'questions'}
+                               onChange={this.handleGameDurationTypeChange} />
+                            &nbsp;Questions
+                        </label>
+
+                        <label><input type="radio" value="time"
+                               checked={this.state.gameDurationType === 'time'}
+                               onChange={this.handleGameDurationTypeChange} />
+                            &nbsp;Time
+                        </label>
 
                     </div>
 

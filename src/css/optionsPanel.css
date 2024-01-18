@@ -30,6 +30,7 @@ h2 {
     font-size: var(--font-size-default);
 }
 
-.options-panel input[type='checkbox'] {
+.options-panel input[type='checkbox'],
+.options-panel input[type='radio']{
     transform: scale(2);
 }

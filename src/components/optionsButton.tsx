@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import {OptionsPanel, OptionsPanelProps} from "./OptionsPanel";
-import '../css/optionsButton.css';
+import {OptionsPanel, OptionsPanelProps} from "./optionsPanel";
+import '../css/buttons.css';
 
 const MySwal = withReactContent(Swal);
 
@@ -13,12 +13,12 @@ export class OptionsButton extends Component<OptionsPanelProps> {
 
     showModal = (event: React.MouseEvent<HTMLDivElement>) => {
         MySwal.fire({
-            title: <h1>Options</h1>,
+            title: <h2>Options</h2>,
             // icon: 'question',
             // html: <p>hamburger</p>,
             html: <OptionsPanel onChangeFn={this.props.onChangeFn}/>,
             width: '90%',
-            // heightAuto: true,
+            heightAuto: true,
             showCloseButton: true,
             showConfirmButton: false,
         });
@@ -27,7 +27,7 @@ export class OptionsButton extends Component<OptionsPanelProps> {
 
     render() {
         return (
-            <div className={'options-button'}
+            <div className={'game-control-button options-button'}
                     onClick={this.showModal}/>
         );
     }

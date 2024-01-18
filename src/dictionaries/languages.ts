@@ -1,8 +1,8 @@
 export enum Lang {
-    English = 1,
-    ChineseSimplified = 2,
-    ChineseTraditional = 3,
-    Pinyin = 4,
+    English = 100,
+    ChineseSimplified,
+    ChineseTraditional,
+    Pinyin,
 }
 
 export enum HskLevel {

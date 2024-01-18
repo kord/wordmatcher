@@ -4,7 +4,7 @@ export function getStoredValue(valueName: string): string | undefined {
     const key = `${appWidePrefix}${valueName}`;
     const storedValue = localStorage.getItem(key);
     if (storedValue !== null) return storedValue;
-    return defaultValues[valueName as keyof Defaults] || undefined;
+    return undefined;
 }
 
 export function getStoredNumber(valueName: string): number | undefined {

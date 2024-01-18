@@ -11,7 +11,6 @@ function App() {
             {/*<header className="App-header"/>*/}
             
             <MatcherGame/>
-            {/*<span id="ruler"></span>*/}
         </div>
     );
 }

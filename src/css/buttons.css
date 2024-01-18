@@ -1,13 +1,23 @@
-
-.options-button {
+.game-control-button {
     position: absolute;
     top: 0;
-    right: 0;
     height: var(--top-space);
     width: var(--top-space);
-
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.options-button {
+    right: 0;
+
     /* gear image from https://www.pngwing.com/en/free-png-dzuiw/download*/
     background-image: url("../img/gear.png");
+}
+
+.start-button {
+    left: 0;
+
+    /* play image from https://www.onlinewebfonts.com/icon/396080*/
+    background-image: url("../img/start_game.svg");
+
 }

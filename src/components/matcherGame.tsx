@@ -4,6 +4,7 @@ import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../
 import {QuizResponseOption} from "./quizResponseOption";
 import {OptionsButton} from "./optionsButton";
 import '../css/matcherGame.scss';
+import {StartButton} from "./startButton";
 
 
 interface MatcherGameProps {
@@ -51,6 +52,8 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
                     </div>
                 </div>
                 <div className={'game-title'}>Word Matcher</div>
+                <StartButton startFn={() => {
+                }}/>
                 <OptionsButton onChangeFn={() => {
                 }}/>
             </>

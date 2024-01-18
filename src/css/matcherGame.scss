@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&family=Roboto:wght@900&display=swap');
 
 .matcher-game {
   text-align: center;
@@ -8,16 +9,13 @@
 .game-title {
   position: absolute;
 
-  width: 60%;
-  left:0;
-  right:0;
+  width: 100vw;
+  text-align: center;
 
-  margin-left: auto;
-  margin-right: auto;
+  font-family: 'Roboto', sans-serif;
 
-  font-family: Consolas;
   --title-height: .6;
-  top: calc((var(--top-space) * (1 - var(--title-height))) /2 );
+  top: calc((var(--top-space) * (1 - var(--title-height))) / 2);
   font-size: calc(var(--top-space) * var(--title-height));
 }
 
@@ -57,6 +55,7 @@
 .quiz-response-panel {
   //position: absolute;
   //left:10vw;
+
 
   margin-inline: auto;
   width: min(80vw, 1000px);
@@ -100,12 +99,15 @@
 
   //
 
-  align-content: space-evenly;
+  //align-content: space-evenly;
 }
 
 .quiz-response-option.quiz-response-option__ChineseSimplified,
 .quiz-response-option.quiz-response-option__ChineseTraditional {
+  font-family: 'Noto Sans TC', sans-serif;
   font-size: calc(var(--row-size) / clamp(1, var(--character-count) * 1.35, 10));
+  line-height: calc(var(--row-size) / 1.15);
+
 }
 
 .quiz-response-option.quiz-response-option__English,

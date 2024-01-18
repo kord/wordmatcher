@@ -1,12 +1,35 @@
+h2 {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
 
 .options-panel {
-
+    /*height: 90%;*/
+    --font-size-default: 5vw;
+    font-size: var(--font-size-default);
+    text-align: left;
 }
 
 .options-panel__flex {
-
+    display: flex;
+    flex-direction: column;
 }
 
 .options-panel__section-name {
+    font-weight: bold;
+    margin: 3vw 0 0 0;
+}
 
+.options-panel__section {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5vw;
+}
+
+.options-panel select {
+    font-size: var(--font-size-default);
+}
+
+.options-panel input[type='checkbox'] {
+    transform: scale(2);
 }

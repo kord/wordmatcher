@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import '../css/matcherGame.scss';
 import {MatcherGameLogic} from "../logic/game";
 import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../logic/matcherGameOptions";
-import CSS from "csstype";
 import {QuizResponseOption} from "./quizResponseOption";
+import {OptionsButton} from "./optionsButton";
+import '../css/matcherGame.scss';
 
 
 interface MatcherGameProps {
@@ -24,7 +24,7 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
         };
     }
 
-    selectOption = (i: number) => {
+    selectGuess = (i: number) => {
         this.state.game.applyGuessForCurrentRound(i);
         this.forceUpdate();
     }
@@ -32,35 +32,28 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
 
     render() {
 
-        return (
-            <div className={'matcher-game'}>
-                <div className={'options-bar'}>
-                    Options bar:
-                    <button>
-                        Options
-                    </button>
-                </div>
-                <div className={'game-body'}>
-                    <p>
-                        Matcher Game!
-                    </p>
+        return (<>
+                <div className={'matcher-game'}>
+                    <div className={'game-body'}>
+                        <div className={'quiz-hint'}>{this.state.game.currentRound.hint.word}</div>
+                        <div className={'quiz-response-panel'}>
+                            <div className={'quiz-response-grid'}>
+                                {this.state.game.currentRound.options.map((option, i) =>
+                                    <QuizResponseOption
+                                        entry={option}
+                                        onClick={this.selectGuess}
+                                        optionNumber={i}
+                                        key={i}/>
+                                )}
 
-                    <div className={'quiz-hint'}>{this.state.game.currentRound.hint.word}</div>
-                    <div className={'quiz-response-panel'}>
-                        <div className={'quiz-response-grid'}>
-                            {this.state.game.currentRound.options.map((option, i) =>
-                                <QuizResponseOption
-                                    entry={option}
-                                    onClick={this.selectOption}
-                                    optionNumber={i}
-                                    key={i}/>
-                            )}
-
+                            </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
+                <div className={'game-title'}>Word Matcher</div>
+                <OptionsButton onChangeFn={() => {
+                }}/>
+            </>
         );
     }
 }

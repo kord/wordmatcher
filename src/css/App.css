@@ -1,15 +1,16 @@
 .App {
-    text-align: center;
-    color: white;
+    /*color: white;*/
     min-height: 100vh;
+
+    --top-space: 10vh;
 }
 
-#ruler {
-    visibility: hidden;
-    white-space: nowrap;
-    /* Normalized measure for font height. */
-    font-size: 20px;
-}
+/*#ruler {*/
+/*    visibility: hidden;*/
+/*    white-space: nowrap;*/
+/*    !* Normalized measure for font height. *!*/
+/*    font-size: 20px;*/
+/*}*/
 
 div,
 button
@@ -23,7 +24,6 @@ button
     user-select: none;
 
 }
-
 
 /*.App-header {*/
 /*  background-color: #282c34;*/

@@ -8,10 +8,10 @@ function App() {
 
     return (
         <div className="App">
-            <header className="App-header"/>
+            {/*<header className="App-header"/>*/}
             
             <MatcherGame/>
-            <span id="ruler"></span>
+            {/*<span id="ruler"></span>*/}
         </div>
     );
 }

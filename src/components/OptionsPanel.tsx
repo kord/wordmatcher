@@ -1,8 +1,9 @@
 import {Component} from "react";
 import '../css/optionsPanel.css';
 
-interface OptionsPanelProps {
-}
+export type OptionsPanelProps = {
+    onChangeFn?: VoidFunction,
+};
 
 interface OptionsPanelState {
 }

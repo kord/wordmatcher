@@ -1,23 +1,42 @@
 
 .matcher-game {
-  --options-bar__height: 30px;
-}
-
-.options-bar {
-  background-color: blue;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: var(--options-bar__height);
+  text-align: center;
+  height: 100%;
   width: 100%;
 }
+
+.game-title {
+  position: absolute;
+
+  width: 60%;
+  left:0;
+  right:0;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  font-family: Consolas;
+  --title-height: .6;
+  top: calc((var(--top-space) * (1 - var(--title-height))) /2 );
+  font-size: calc(var(--top-space) * var(--title-height));
+}
+
+//
+//.options-bar {
+//  background-color: blue;
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  height: var(--top-space);
+//  width: 100%;
+//}
 
 .game-body {
   background-color: green;
   position: absolute;
-  top: var(--options-bar__height);
+  top: var(--top-space);
   left: 0;
-  height: calc(100% - 40px);
+  height: calc(100% - var(--top-space));
   width: 100%;
 }
 

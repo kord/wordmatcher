@@ -1,0 +1,13 @@
+
+.options-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: var(--top-space);
+    width: var(--top-space);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* gear image from https://www.pngwing.com/en/free-png-dzuiw/download*/
+    background-image: url("../img/gear.png");
+}

@@ -13,5 +13,6 @@ export interface JunDaLexicon {
 
 export interface AppOptions {
     duration: GameLength,
-    wordlist: HskLexicon | JunDaLexicon | 'SimpTrad',
+    wordlist: HskLexicon | JunDaLexicon | 'SimpTrad' | 'TaiwanPlaces',
+    characterSet: 'cn' | 'tw',
 }

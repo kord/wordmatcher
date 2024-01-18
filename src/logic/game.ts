@@ -5,7 +5,7 @@ import {
     MatcherRoundObjective,
     MatcherRoundRecord,
     MatcherRoundResult
-} from "./options";
+} from "./matcherGameOptions";
 import {WordEntry} from "../dictionaries/matcherDict";
 import {Lang} from "../dictionaries/languages";
 import {pinyin} from "pinyin-pro";

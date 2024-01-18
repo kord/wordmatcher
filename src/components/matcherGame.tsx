@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/matcherGame.scss';
 import {MatcherGameLogic} from "../logic/game";
-import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../logic/options";
+import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../logic/matcherGameOptions";
 import CSS from "csstype";
 import {QuizResponseOption} from "./quizResponseOption";
 

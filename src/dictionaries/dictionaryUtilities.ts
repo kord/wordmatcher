@@ -6,6 +6,7 @@ import {hsk3Wordlist} from "../wordlists/hsk3";
 import {hsk4Wordlist} from "../wordlists/hsk4";
 import {hsk5Wordlist} from "../wordlists/hsk5";
 import {hsk6Wordlist} from "../wordlists/hsk6";
+import {HskLexicon} from "../logic/appwideOptions";
 
 const OpenCC = require('opencc-js');
 
@@ -27,7 +28,8 @@ export function wordListToMatcherInput(wordList: [string, string][]): [WordEntry
         {lang: Lang.English, word: shortDefinition(words[1]), definition: words[1]}]);
 }
 
-function getHskWordList(level: HskLevel, includeLowerLevels: boolean = false): [string, string][] {
+function getHskWordList(hskOptions : HskLexicon): [string, string][] {
+    const {level, includeLowerLevels} = hskOptions;
     const ret: [string, string][] = [];
     if (!includeLowerLevels)
         switch (level) {
@@ -55,8 +57,8 @@ function getHskWordList(level: HskLevel, includeLowerLevels: boolean = false): [
     }
 }
 
-export function getHskMatcherDict(level: HskLevel, includeLowerLevels: boolean = false): MatcherDict {
-    return new MatcherDict(wordListToMatcherInput(getHskWordList(level, includeLowerLevels)));
+export function getHskMatcherDict(hskOptions: HskLexicon): MatcherDict {
+    return new MatcherDict(wordListToMatcherInput(getHskWordList(hskOptions)));
 }
 
 

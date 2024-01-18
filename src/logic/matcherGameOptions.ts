@@ -44,7 +44,7 @@ export interface MatcherRoundRecord {
 }
 
 export const defaultOptions: MatcherGameOptions = {
-    dictionary: getHskMatcherDict(HskLevel.HSK1),
+    dictionary: getHskMatcherDict({level: HskLevel.HSK1}),
     gameLength: {count: 45, units: 'seconds'},
     optionCount: 4,
     objectives: [

@@ -6,7 +6,7 @@ import {hsk3Wordlist} from "../wordlists/hsk3";
 import {hsk4Wordlist} from "../wordlists/hsk4";
 import {hsk5Wordlist} from "../wordlists/hsk5";
 import {hsk6Wordlist} from "../wordlists/hsk6";
-import {HskLexicon} from "../logic/appwideOptions";
+import {HskLexicon} from "../logic/gameOptionsTypes";
 
 const OpenCC = require('opencc-js');
 

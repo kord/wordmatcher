@@ -2,8 +2,8 @@
 
 .matcher-game {
   text-align: center;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .game-title {
@@ -34,20 +34,44 @@
   position: absolute;
   top: var(--top-space);
   left: 0;
-  height: calc(100% - var(--top-space));
-  width: 100%;
+  height: calc(100vh - var(--top-space));
+  width: 100vw;
+
+  // Modified by the media query below to choose whether we're in flat or tall configuration
+  --response-rows: 2;
+  // The content width you use on your website
+  --content-width: 90vw;
+  --default-margin: calc((100vw - var(--content-width)) / 2);
+
+  // The number of columns
+  --response-columns: calc(4 / var(--response-rows));
+  // The size of the gutter
+  --gutter: 10px;
+  // This is the calculation for the row height.
+  --response-box-dimensions: calc(
+          (var(--content-width) - (var(--gutter) * (var(--response-columns) - 1))) / var(--response-columns)
+  );
+}
+
+@media (min-aspect-ratio: 7/10) {
+  .game-body {
+    --response-rows: 1;
+  }
 }
 
 .quiz-hint {
-  font-size: clamp(16px, 20vw, 220px);
-
+  display: flow;
+  width: var(--content-width);
   margin-inline: auto;
-  width: min(80vw, 1000px);
 
-  border: black solid medium;
+  --available-height: calc(100vh - var(--default-margin) - var(--gutter) - var(--top-space) - (var(--response-box-dimensions) * var(--response-rows)));
+
+  font-size: clamp(16px, 50px, 220px);
+
+  height: var(--available-height);
+
+  border: yellow solid medium;
   border-radius: 15px;
-
-  margin-bottom: 20px;
 
   color: black;
 }
@@ -58,34 +82,24 @@
 
 
   margin-inline: auto;
-  width: min(80vw, 1000px);
+  width: min(90vw, 1000px);
   //border: 3px solid hotpink;
 
 }
 
 .quiz-response-grid {
-  // The content width you use on your website
-  --content-width: 80vw;
-  // The size of the gutter
-  --gutter: 10px;
-  // The amount of columns
-  --columns: 2;
+  position: absolute;
+  bottom: 5vw;
 
-  // This is the calculation for the row height.
-  --row-size: calc(
-          (var(--content-width) - (var(--gutter) * (var(--columns) - 1))) / var(--columns)
-  );
 
   display: grid;
   width: 100%;
   max-width: var(--content-width);
-  grid-template-columns: repeat(var(--columns), 1fr);
-  grid-auto-rows: var(--row-size);
+  grid-template-columns: repeat(var(--response-columns), 1fr);
+  grid-auto-rows: var(--response-box-dimensions);
 
   grid-column-gap: var(--gutter);
   grid-row-gap: var(--gutter);
-
-
 }
 
 .quiz-response-option {
@@ -105,14 +119,14 @@
 .quiz-response-option.quiz-response-option__ChineseSimplified,
 .quiz-response-option.quiz-response-option__ChineseTraditional {
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: calc(var(--row-size) / clamp(1, var(--character-count) * 1.35, 10));
-  line-height: calc(var(--row-size) / 1.15);
+  font-size: calc(var(--response-box-dimensions) / clamp(1, var(--character-count) * 1.35, 10));
+  line-height: calc(var(--response-box-dimensions) / 1.15);
 
 }
 
 .quiz-response-option.quiz-response-option__English,
 .quiz-response-option.quiz-response-option__Pinyin {
-  font-size: clamp(5vw, calc(7 * var(--row-size) / var(--string-width)), 32vw);
+  font-size: clamp(5vw, calc(7 * var(--response-box-dimensions) / var(--string-width)), 32vw);
 }
 
 .quiz-response-option:hover {

@@ -6,16 +6,21 @@ import {
     getStoredValue,
     setStoredBool,
     setStoredNumber,
-    setStoredValue
+    setStoredValue,
+    optionsStoredNames, optionsDefaultValues
 } from "../utils/localStorage";
 import '../css/optionsPanel.css';
+import {WordListType} from "../logic/gameOptionsTypes";
 
 export type OptionsPanelProps = {
     onChangeFn?: VoidFunction,
 };
 
-interface OptionsPanelState {
+export interface OptionsPanelState {
+    wordListType: WordListType,
     hskLevel: HskLevel,
+    jundaMin: number,
+    jundaMax: number,
     includeLowerHskLevels: boolean,
     characterSet: string,
     gameDurationType: string,
@@ -23,48 +28,35 @@ interface OptionsPanelState {
     gameDurationTimeSeconds: number,
 }
 
-const storedNames = {
-    hskLevel: 'options-hskLevel',
-    includeLowerHskLevels: 'options-includeLowerHskLevels',
-    characterSet: 'options-characterType',
-    gameDurationType: 'options-gameDurationType',
-    gameDurationQuestions: 'options-gameDurationQuestions',
-    gameDurationTimeSeconds: 'options-gameDurationTimeSeconds',
-
-}
-
-const defaultValues = {
-    hskLevel: HskLevel.HSK1,
-    includeLowerHskLevels: false,
-    characterSet: 'tw',
-    gameDurationType: 'time',
-    gameDurationQuestions: 30,
-    gameDurationTimeSeconds: 45,
-}
-
 
 export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState> {
     constructor(props: OptionsPanelProps) {
         super(props);
         this.state = {
-            hskLevel: getStoredNumber(storedNames.hskLevel) as HskLevel || defaultValues.hskLevel,
-            includeLowerHskLevels: getStoredBool(storedNames.includeLowerHskLevels) || defaultValues.includeLowerHskLevels,
-            characterSet: getStoredValue(storedNames.characterSet) || defaultValues.characterSet,
-            gameDurationType: getStoredValue(storedNames.gameDurationType) || defaultValues.gameDurationType,
-            gameDurationQuestions: getStoredNumber(storedNames.gameDurationQuestions) || defaultValues.gameDurationQuestions,
-            gameDurationTimeSeconds: getStoredNumber(storedNames.gameDurationTimeSeconds) || defaultValues.gameDurationTimeSeconds,
+            wordListType: getStoredValue(optionsStoredNames.wordListType) as WordListType || optionsDefaultValues.wordListType,
+            hskLevel: getStoredNumber(optionsStoredNames.hskLevel) as HskLevel || optionsDefaultValues.hskLevel,
+            jundaMin: getStoredNumber(optionsStoredNames.jundaMin) || optionsDefaultValues.jundaMin,
+            jundaMax: getStoredNumber(optionsStoredNames.jundaMax) || optionsDefaultValues.jundaMax,
+            includeLowerHskLevels: getStoredBool(optionsStoredNames.includeLowerHskLevels) || optionsDefaultValues.includeLowerHskLevels,
+            characterSet: getStoredValue(optionsStoredNames.characterSet) || optionsDefaultValues.characterSet,
+            gameDurationType: getStoredValue(optionsStoredNames.gameDurationType) || optionsDefaultValues.gameDurationType,
+            gameDurationQuestions: getStoredNumber(optionsStoredNames.gameDurationQuestions) || optionsDefaultValues.gameDurationQuestions,
+            gameDurationTimeSeconds: getStoredNumber(optionsStoredNames.gameDurationTimeSeconds) || optionsDefaultValues.gameDurationTimeSeconds,
 
         };
     }
 
     saveOptions = () => {
         console.log('Asked to save options.');
-        setStoredNumber(storedNames.hskLevel, this.state.hskLevel);
-        setStoredBool(storedNames.includeLowerHskLevels, this.state.includeLowerHskLevels);
-        setStoredValue(storedNames.characterSet, this.state.characterSet);
-        setStoredValue(storedNames.gameDurationType, this.state.gameDurationType);
-        setStoredNumber(storedNames.gameDurationQuestions, this.state.gameDurationQuestions);
-        setStoredNumber(storedNames.gameDurationTimeSeconds, this.state.gameDurationTimeSeconds);
+        setStoredValue(optionsStoredNames.wordListType, this.state.wordListType);
+        setStoredNumber(optionsStoredNames.hskLevel, this.state.hskLevel);
+        setStoredNumber(optionsStoredNames.jundaMin, this.state.jundaMin);
+        setStoredNumber(optionsStoredNames.jundaMax, this.state.jundaMax);
+        setStoredBool(optionsStoredNames.includeLowerHskLevels, this.state.includeLowerHskLevels);
+        setStoredValue(optionsStoredNames.characterSet, this.state.characterSet);
+        setStoredValue(optionsStoredNames.gameDurationType, this.state.gameDurationType);
+        setStoredNumber(optionsStoredNames.gameDurationQuestions, this.state.gameDurationQuestions);
+        setStoredNumber(optionsStoredNames.gameDurationTimeSeconds, this.state.gameDurationTimeSeconds);
     }
 
     setHskLevel = (level: string) => {
@@ -87,6 +79,11 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
     handleCharacterSetChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
         const newValue = ff.target.value;
         this.setState({characterSet: newValue}, this.saveOptions);
+    }
+
+    handleWordListTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
+        const newValue = ff.target.value as WordListType;
+        this.setState({wordListType: newValue}, this.saveOptions);
     }
 
     handleGameDurationTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
@@ -142,6 +139,9 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     </div>
 
                     <p className={'options-panel__section-name'}>Word List</p>
+                    {/*<input type="radio" value='HSK'*/}
+                    {/*       checked={this.state.wordListType === 'HSK'}*/}
+                    {/*       onChange={this.handleWordListTypeChange}/>*/}
                     <div className={'options-panel__section'}>
                         <label>
                             HSK Level:&nbsp;

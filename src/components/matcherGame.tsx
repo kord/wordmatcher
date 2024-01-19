@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import {MatcherGameLogic} from "../logic/game";
-import {defaultOptions, defaultSimpTradOptions, MatcherRoundObjective} from "../logic/matcherGameOptions";
+import {defaultOptions, defaultSimpTradOptions} from "../logic/matcherGameOptions";
 import {QuizResponseOption} from "./quizResponseOption";
 import {OptionsButton} from "./optionsButton";
 import '../css/matcherGame.scss';
 import {StartButton} from "./startButton";
+import {MatcherDict} from "../dictionaries/matcherDict";
+import {MatcherRoundObjective} from "../logic/gameOptionsTypes";
 
 
 interface MatcherGameProps {
 }
 
 interface MatcherGameState {
+    loadedDictionary?: MatcherDict,
     gameActive: boolean,
     game: MatcherGameLogic,
 }
@@ -23,6 +26,14 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
             game: new MatcherGameLogic(defaultOptions),
             // game: new MatcherGameLogic(defaultSimpTradOptions),
         };
+    }
+
+    startFn = () => {
+        console.log('start pressed')
+    }
+
+    optionsChangeFn = () => {
+        console.log('optionsChange called')
     }
 
     selectGuess = (i: number) => {
@@ -52,10 +63,8 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
                     </div>
                 </div>
                 <div className={'game-title'}>Word Matcher</div>
-                <StartButton startFn={() => {
-                }}/>
-                <OptionsButton onChangeFn={() => {
-                }}/>
+                <StartButton startFn={this.startFn                }/>
+                <OptionsButton onChangeFn={                this.optionsChangeFn}/>
             </>
         );
     }

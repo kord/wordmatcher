@@ -1,14 +1,16 @@
 import {
-    defaultOptions,
+    defaultOptions
+} from "./matcherGameOptions";
+import {WordEntry} from "../dictionaries/matcherDict";
+import {Lang} from "../dictionaries/languages";
+import {pinyin} from "pinyin-pro";
+import {
     MatcherGameOptions,
     MatcherRoundData,
     MatcherRoundObjective,
     MatcherRoundRecord,
     MatcherRoundResult
-} from "./matcherGameOptions";
-import {WordEntry} from "../dictionaries/matcherDict";
-import {Lang} from "../dictionaries/languages";
-import {pinyin} from "pinyin-pro";
+} from "./gameOptionsTypes";
 
 // Taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffle(array: any[]) {

@@ -63,6 +63,10 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({hskLevel: +level}, this.saveOptions);
     }
 
+    setJunDaMax = (level: string) => {
+        this.setState({jundaMax: +level}, this.saveOptions);
+    }
+
     setGameDurationQuestions = (gameDurationQuestions: string) => {
         this.setState({gameDurationQuestions: +gameDurationQuestions}, this.saveOptions);
     }
@@ -95,7 +99,9 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         return (
             <div className={'options-panel'}>
                 <div className={'options-panel__flex'}>
+                    {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Game Length</p>
+                    {/*************************************************************/}
                     <div className={'options-panel__section'}>
                         <label><input type="radio" value="questions"
                                       checked={this.state.gameDurationType === 'questions'}
@@ -122,9 +128,8 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                                       onChange={this.handleGameDurationTypeChange}/>
                             &nbsp;Time:&nbsp;
                             <label>
-                                <select
-                                    value={this.state.gameDurationTimeSeconds}
-                                    onChange={e => this.setGameDurationTimeSeconds(e.target.value)}
+                                <select value={this.state.gameDurationTimeSeconds}
+                                        onChange={e => this.setGameDurationTimeSeconds(e.target.value)}
                                 >
                                     <option value={30}>30 Seconds</option>
                                     <option value={45}>45 Seconds</option>
@@ -138,11 +143,15 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
 
                     </div>
 
+                    {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Word List</p>
-                    {/*<input type="radio" value='HSK'*/}
-                    {/*       checked={this.state.wordListType === 'HSK'}*/}
-                    {/*       onChange={this.handleWordListTypeChange}/>*/}
+                    {/*************************************************************/}
                     <div className={'options-panel__section'}>
+                        <input className={'options-panel__word-list-selector'}
+                               type="radio"
+                               value='HSK'
+                               checked={this.state.wordListType === 'HSK'}
+                               onChange={this.handleWordListTypeChange}/>
                         <label>
                             HSK Level:&nbsp;
                             <select
@@ -166,7 +175,27 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
 
                     </div>
 
+                    <input className={'options-panel__word-list-selector'}
+                           type="radio"
+                           value='JunDa'
+                           checked={this.state.wordListType === 'JunDa'}
+                           onChange={this.handleWordListTypeChange}/>
+                    <div className={'options-panel__section'}>
+                        <label>
+                            Jun Da Most Common Characters:&nbsp;
+                            <select
+                                value={this.state.jundaMax}
+                                onChange={e => this.setJunDaMax(e.target.value)}
+                            >
+                                {[100, 200, 400, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000].map(n =>
+                                    <option value={n} key={n}>{n} Characters</option>)}
+                            </select>
+                        </label>
+                    </div>
+
+                    {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Character Set</p>
+                    {/*************************************************************/}
                     <div className={'options-panel__section'}>
                         <label>
                             Traditional:&nbsp;

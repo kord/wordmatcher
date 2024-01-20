@@ -95,6 +95,11 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({gameDurationType: newValue}, this.saveOptions);
     }
 
+    activeWordListClass = (l: string) => {
+        if (this.state.wordListType === l) return 'wordlist-choice-panel__active';
+        else return 'wordlist-choice-panel__inactive';
+    }
+
     render() {
         return (
             <div className={'options-panel'}>
@@ -103,25 +108,28 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     <p className={'options-panel__section-name'}>Game Length</p>
                     {/*************************************************************/}
                     <div className={'options-panel__section'}>
-                        <label><input type="radio" value="questions"
-                                      checked={this.state.gameDurationType === 'questions'}
-                                      onChange={this.handleGameDurationTypeChange}/>
+                        <label>
+                            <input type="radio"
+                                   value="questions"
+                                   checked={this.state.gameDurationType === 'questions'}
+                                   onChange={this.handleGameDurationTypeChange}/>
                             &nbsp;Questions:&nbsp;
                             <label>
-                                <select
-                                    value={this.state.gameDurationQuestions}
-                                    onChange={e => this.setGameDurationQuestions(e.target.value)}
+                                <select value={this.state.gameDurationQuestions}
+                                        onChange={e => this.setGameDurationQuestions(e.target.value)}
                                 >
-                                    {[10,20,30,40,50,75,100].map(c =>
-                                        <option value={c}>{c} Questions</option>
+                                    {[10, 20, 30, 40, 50, 75, 100].map(c =>
+                                        <option value={c} key={c}>{c} Questions</option>
                                     )}
                                 </select>
                             </label>
                         </label>
 
-                        <label><input type="radio" value="time"
-                                      checked={this.state.gameDurationType === 'time'}
-                                      onChange={this.handleGameDurationTypeChange}/>
+                        <label>
+                            <input type="radio"
+                                   value="time"
+                                   checked={this.state.gameDurationType === 'time'}
+                                   onChange={this.handleGameDurationTypeChange}/>
                             &nbsp;Time:&nbsp;
                             <label>
                                 <select value={this.state.gameDurationTimeSeconds}
@@ -137,47 +145,65 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                             </label>
                         </label>
 
+                        <label>
+                            <input type="radio"
+                                   value="unlimited"
+                                   checked={this.state.gameDurationType === 'unlimited'}
+                                   onChange={this.handleGameDurationTypeChange}/>
+                            &nbsp;Unlimited&nbsp;
+                        </label>
                     </div>
 
                     {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Word List</p>
                     {/*************************************************************/}
-                    <div className={'options-panel__section'}>
+                    <div className={`wordlist-choice-panel ${this.activeWordListClass('HSK')}`}>
+                        &nbsp;
                         <input className={'options-panel__word-list-selector'}
-                               type="radio"
+                               type='radio'
                                value='HSK'
+                               id='HSK-word-list-selector'
                                checked={this.state.wordListType === 'HSK'}
                                onChange={this.handleWordListTypeChange}/>
-                        <label>
-                            HSK Level:&nbsp;
-                            <select
-                                value={this.state.hskLevel}
-                                onChange={e => this.setHskLevel(e.target.value)}>
-                                <option value={HskLevel.HSK1}>Level 1</option>
-                                <option value={HskLevel.HSK2}>Level 2</option>
-                                <option value={HskLevel.HSK3}>Level 3</option>
-                                <option value={HskLevel.HSK4}>Level 4</option>
-                                <option value={HskLevel.HSK5}>Level 5</option>
-                                <option value={HskLevel.HSK6}>Level 6</option>
-                            </select>
-                        </label>
-                        <label>
-                            Include lower levels:&nbsp;
-                            <input type={'checkbox'}
-                                   checked={this.state.includeLowerHskLevels}
-                                   onChange={this.handleChangeIncludeLowerHskLevels}></input>
-                        </label>
+                        <div className={'options-panel__section'}>
+                            <span>
+                                <label htmlFor={'HSK-word-list-selector'}>
+                                    HSK Level:&nbsp;
+                                </label>
+                                <select
+                                    value={this.state.hskLevel}
+                                    onChange={e => this.setHskLevel(e.target.value)}>
+                                    <option value={HskLevel.HSK1}>Level 1</option>
+                                    <option value={HskLevel.HSK2}>Level 2</option>
+                                    <option value={HskLevel.HSK3}>Level 3</option>
+                                    <option value={HskLevel.HSK4}>Level 4</option>
+                                    <option value={HskLevel.HSK5}>Level 5</option>
+                                    <option value={HskLevel.HSK6}>Level 6</option>
+                                </select>
+                            </span>
+                            <label>
+                                Include lower levels:&nbsp;
+                                <input type={'checkbox'}
+                                       checked={this.state.includeLowerHskLevels}
+                                       onChange={this.handleChangeIncludeLowerHskLevels}></input>
+                            </label>
 
+                        </div>
                     </div>
 
-                    <input className={'options-panel__word-list-selector'}
-                           type="radio"
-                           value='JunDa'
-                           checked={this.state.wordListType === 'JunDa'}
-                           onChange={this.handleWordListTypeChange}/>
-                    <div className={'options-panel__section'}>
-                        <label>
-                            Jun Da Most Common Characters:&nbsp;
+                    <div className={`wordlist-choice-panel ${this.activeWordListClass('JunDa')}`}>
+                        &nbsp;
+                        <input className={'options-panel__word-list-selector'}
+                               id='JunDa-word-list-selector'
+                               type='radio'
+                               value='JunDa'
+                               checked={this.state.wordListType === 'JunDa'}
+                               onChange={this.handleWordListTypeChange}/>
+                        <div className={'options-panel__section'}>
+                        <span>
+                            <label htmlFor={'JunDa-word-list-selector'}>
+                                Jun Da Most Common Characters:&nbsp;
+                            </label>
                             <select
                                 value={this.state.jundaMax}
                                 onChange={e => this.setJunDaMax(e.target.value)}
@@ -185,18 +211,20 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                                 {[100, 200, 400, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000].map(n =>
                                     <option value={n} key={n}>{n} Characters</option>)}
                             </select>
-                        </label>
+                        </span>
+                        </div>
                     </div>
-
                     {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Character Set</p>
                     {/*************************************************************/}
                     <div className={'options-panel__section'}>
                         {[['Traditional', 'tw'], ['Simplified', 'cn']].map(lang =>
                             <label>
-                                {lang[1]}:&nbsp;
-                                <input type="radio" value={lang[2]}
-                                       checked={this.state.characterSet === lang[2]}
+                                {lang[0]}:&nbsp;
+                                <input type="radio"
+                                       value={lang[1]}
+                                       key={lang[1]}
+                                       checked={this.state.characterSet === lang[1]}
                                        onChange={this.handleCharacterSetChange}/>
                             </label>)}
                     </div>

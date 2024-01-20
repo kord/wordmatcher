@@ -26,6 +26,12 @@ h2 {
     margin-left: 5vw;
 }
 
+.options-panel__word-list-selector {
+    position: absolute;
+    left: 5vw;
+
+}
+
 .options-panel select {
     font-size: var(--font-size-default);
 }

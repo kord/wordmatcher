@@ -112,13 +112,9 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                                     value={this.state.gameDurationQuestions}
                                     onChange={e => this.setGameDurationQuestions(e.target.value)}
                                 >
-                                    <option value={10}>10 Questions</option>
-                                    <option value={20}>20 Questions</option>
-                                    <option value={30}>30 Questions</option>
-                                    <option value={40}>40 Questions</option>
-                                    <option value={50}>50 Questions</option>
-                                    <option value={75}>75 Questions</option>
-                                    <option value={100}>100 Questions</option>
+                                    {[10,20,30,40,50,75,100].map(c =>
+                                        <option value={c}>{c} Questions</option>
+                                    )}
                                 </select>
                             </label>
                         </label>
@@ -156,8 +152,7 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                             HSK Level:&nbsp;
                             <select
                                 value={this.state.hskLevel}
-                                onChange={e => this.setHskLevel(e.target.value)}
-                            >
+                                onChange={e => this.setHskLevel(e.target.value)}>
                                 <option value={HskLevel.HSK1}>Level 1</option>
                                 <option value={HskLevel.HSK2}>Level 2</option>
                                 <option value={HskLevel.HSK3}>Level 3</option>
@@ -197,18 +192,13 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     <p className={'options-panel__section-name'}>Character Set</p>
                     {/*************************************************************/}
                     <div className={'options-panel__section'}>
-                        <label>
-                            Traditional:&nbsp;
-                            <input type="radio" value="tw"
-                                   checked={this.state.characterSet === 'tw'}
-                                   onChange={this.handleCharacterSetChange}/>
-                        </label>
-                        <label>
-                            Simplified:&nbsp;
-                            <input type="radio" value="cn"
-                                   checked={this.state.characterSet === 'cn'}
-                                   onChange={this.handleCharacterSetChange}/>
-                        </label>
+                        {[['Traditional', 'tw'], ['Simplified', 'cn']].map(lang =>
+                            <label>
+                                {lang[1]}:&nbsp;
+                                <input type="radio" value={lang[2]}
+                                       checked={this.state.characterSet === lang[2]}
+                                       onChange={this.handleCharacterSetChange}/>
+                            </label>)}
                     </div>
 
                 </div>

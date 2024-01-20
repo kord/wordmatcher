@@ -90,6 +90,10 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({wordListType: newValue}, this.saveOptions);
     }
 
+    handleWordListTypeChangexxx  = (ff:WordListType) => {
+        this.setState({wordListType: ff}, this.saveOptions);
+    }
+
     handleGameDurationTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
         const newValue = ff.target.value;
         this.setState({gameDurationType: newValue}, this.saveOptions);
@@ -110,23 +114,6 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     <div className={'options-panel__section'}>
                         <label>
                             <input type="radio"
-                                   value="questions"
-                                   checked={this.state.gameDurationType === 'questions'}
-                                   onChange={this.handleGameDurationTypeChange}/>
-                            &nbsp;Questions:&nbsp;
-                            <label>
-                                <select value={this.state.gameDurationQuestions}
-                                        onChange={e => this.setGameDurationQuestions(e.target.value)}
-                                >
-                                    {[10, 20, 30, 40, 50, 75, 100].map(c =>
-                                        <option value={c} key={c}>{c} Questions</option>
-                                    )}
-                                </select>
-                            </label>
-                        </label>
-
-                        <label>
-                            <input type="radio"
                                    value="time"
                                    checked={this.state.gameDurationType === 'time'}
                                    onChange={this.handleGameDurationTypeChange}/>
@@ -144,6 +131,22 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                                 </select>
                             </label>
                         </label>
+                        <label>
+                            <input type="radio"
+                                   value="questions"
+                                   checked={this.state.gameDurationType === 'questions'}
+                                   onChange={this.handleGameDurationTypeChange}/>
+                            &nbsp;Questions:&nbsp;
+                            <label>
+                                <select value={this.state.gameDurationQuestions}
+                                        onChange={e => this.setGameDurationQuestions(e.target.value)}
+                                >
+                                    {[10, 20, 30, 40, 50, 75, 100].map(c =>
+                                        <option value={c} key={c}>{c} Questions</option>
+                                    )}
+                                </select>
+                            </label>
+                        </label>
 
                         <label>
                             <input type="radio"
@@ -157,14 +160,15 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Word List</p>
                     {/*************************************************************/}
-                    <div className={`wordlist-choice-panel ${this.activeWordListClass('HSK')}`}>
-                        &nbsp;
-                        <input className={'options-panel__word-list-selector'}
-                               type='radio'
-                               value='HSK'
-                               id='HSK-word-list-selector'
-                               checked={this.state.wordListType === 'HSK'}
-                               onChange={this.handleWordListTypeChange}/>
+                    <div className={`wordlist-choice-panel ${this.activeWordListClass('HSK')}`}
+                         onClick={()=>this.handleWordListTypeChangexxx('HSK')}>
+                        {/*&nbsp;*/}
+                        {/*<input className={'options-panel__word-list-selector'}*/}
+                        {/*       type='radio'*/}
+                        {/*       value='HSK'*/}
+                        {/*       id='HSK-word-list-selector'*/}
+                        {/*       checked={this.state.wordListType === 'HSK'}*/}
+                        {/*       onChange={this.handleWordListTypeChange}/>*/}
                         <div className={'options-panel__section'}>
                             <span>
                                 <label htmlFor={'HSK-word-list-selector'}>
@@ -191,14 +195,15 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         </div>
                     </div>
 
-                    <div className={`wordlist-choice-panel ${this.activeWordListClass('JunDa')}`}>
-                        &nbsp;
-                        <input className={'options-panel__word-list-selector'}
-                               id='JunDa-word-list-selector'
-                               type='radio'
-                               value='JunDa'
-                               checked={this.state.wordListType === 'JunDa'}
-                               onChange={this.handleWordListTypeChange}/>
+                    <div className={`wordlist-choice-panel ${this.activeWordListClass('JunDa')}`}
+                         onClick={()=>this.handleWordListTypeChangexxx('JunDa')}>
+                        {/*&nbsp;*/}
+                        {/*<input className={'options-panel__word-list-selector'}*/}
+                        {/*       id='JunDa-word-list-selector'*/}
+                        {/*       type='radio'*/}
+                        {/*       value='JunDa'*/}
+                        {/*       checked={this.state.wordListType === 'JunDa'}*/}
+                        {/*       onChange={this.handleWordListTypeChange}/>*/}
                         <div className={'options-panel__section'}>
                         <span>
                             <label htmlFor={'JunDa-word-list-selector'}>

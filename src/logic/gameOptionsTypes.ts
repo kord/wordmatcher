@@ -5,8 +5,6 @@ export interface GameDurationFinite {
     count: number,
     units: 'seconds' | 'rounds',
 }
-export type GameDuration = GameDurationFinite | 'unlimited';
-
 export interface MatcherGameOptions {
     dictionary: MatcherDict,
     gameLength: GameDuration,
@@ -52,9 +50,11 @@ export interface JunDaLexicon {
     lastJunDaWord: number,
 }
 
-export type CharacterSetOptions = 'cn' | 'tw';
 export type WordListType = 'HSK' | 'JunDa' | 'SimpTrad' | 'TaiwanPlaces';
+
+export type GameDuration = GameDurationFinite | 'unlimited';
 export type WordListOptions = HskLexicon | JunDaLexicon | 'SimpTrad' | 'TaiwanPlaces';
+export type CharacterSetOptions = 'cn' | 'tw';
 
 export interface GameplayOptions {
     duration: GameDuration,

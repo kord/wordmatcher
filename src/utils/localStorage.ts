@@ -1,6 +1,6 @@
 import {HskLevel} from "../dictionaries/languages";
 import {
-    AppOptions,
+    GameplayOptions,
     CharacterSetOptions,
     GameDuration,
     HskLexicon,
@@ -107,13 +107,13 @@ function getStoredWordListType() : WordListType {
 function getStoredHskOptions() : HskLexicon {
     const level = getStoredNumber(optionsStoredNames.hskLevel) || optionsDefaultValues.hskLevel;
     const includeLower = getStoredBool(optionsStoredNames.includeLowerHskLevels) || optionsDefaultValues.includeLowerHskLevels;
-    return {level: level, includeLowerLevels: includeLower};
+    return {hskLevel: level, includeLowerLevels: includeLower};
 }
 
 function getStoredJunDaOptions() : JunDaLexicon {
     const jundaMin = getStoredNumber(optionsStoredNames.jundaMin) || optionsDefaultValues.jundaMin;
     const jundaMax = getStoredNumber(optionsStoredNames.jundaMax) || optionsDefaultValues.jundaMax;
-    return {firstWord: jundaMin, lastWord: jundaMax};
+    return {firstJunDaWord: jundaMin, lastJunDaWord: jundaMax};
 }
 
 function getStoredWordListSelection() : WordListOptions {
@@ -123,7 +123,7 @@ function getStoredWordListSelection() : WordListOptions {
     else return wordListType;
 }
 
-export function getAppOptionsFromLocalStorage(): AppOptions {
+export function getAppOptionsFromLocalStorage(): GameplayOptions {
     return {
         duration: getStoredGameDuration(),
         wordlist: getStoredWordListSelection(),

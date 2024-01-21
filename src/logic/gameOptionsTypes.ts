@@ -43,20 +43,20 @@ export interface MatcherRoundRecord {
 }
 
 export interface HskLexicon {
-    level: HskLevel,
+    hskLevel: HskLevel,
     includeLowerLevels?: boolean,
 }
 
 export interface JunDaLexicon {
-    firstWord: number,
-    lastWord: number,
+    firstJunDaWord: number,
+    lastJunDaWord: number,
 }
 
 export type CharacterSetOptions = 'cn' | 'tw';
 export type WordListType = 'HSK' | 'JunDa' | 'SimpTrad' | 'TaiwanPlaces';
 export type WordListOptions = HskLexicon | JunDaLexicon | 'SimpTrad' | 'TaiwanPlaces';
 
-export interface AppOptions {
+export interface GameplayOptions {
     duration: GameDuration,
     wordlist: WordListOptions,
     characterSet: CharacterSetOptions,

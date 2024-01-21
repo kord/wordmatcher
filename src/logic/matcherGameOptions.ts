@@ -4,7 +4,7 @@ import {HskLevel} from "../dictionaries/languages";
 import {MatcherGameOptions, MatcherRoundObjective} from "./gameOptionsTypes";
 
 export const defaultOptions: MatcherGameOptions = {
-    dictionary: getHskMatcherDict({level: HskLevel.HSK1}),
+    dictionary: getHskMatcherDict({hskLevel: HskLevel.HSK1}),
     gameLength: 'unlimited',
     optionCount: 4,
     objectives: [

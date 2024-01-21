@@ -11,6 +11,7 @@ import {
 } from "../utils/localStorage";
 import '../css/optionsPanel.css';
 import {WordListType} from "../logic/gameOptionsTypes";
+import classNames from "classnames";
 
 export type OptionsPanelProps = {
     onChangeFn?: VoidFunction,
@@ -85,23 +86,13 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({characterSet: newValue}, this.saveOptions);
     }
 
-    handleWordListTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
-        const newValue = ff.target.value as WordListType;
-        this.setState({wordListType: newValue}, this.saveOptions);
-    }
-
-    handleWordListTypeChangexxx  = (ff:WordListType) => {
+    handleWordListTypeChange = (ff: WordListType) => {
         this.setState({wordListType: ff}, this.saveOptions);
     }
 
     handleGameDurationTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
         const newValue = ff.target.value;
         this.setState({gameDurationType: newValue}, this.saveOptions);
-    }
-
-    activeWordListClass = (l: string) => {
-        if (this.state.wordListType === l) return 'wordlist-choice-panel__active';
-        else return 'wordlist-choice-panel__inactive';
     }
 
     render() {
@@ -160,8 +151,10 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Word List</p>
                     {/*************************************************************/}
-                    <div className={`wordlist-choice-panel ${this.activeWordListClass('HSK')}`}
-                         onClick={()=>this.handleWordListTypeChangexxx('HSK')}>
+                    <div className={classNames(
+                        `wordlist-choice-panel`,
+                        {'wordlist-choice-panel__active': this.state.wordListType === 'HSK'})}
+                         onClick={() => this.handleWordListTypeChange('HSK')}>
                         {/*&nbsp;*/}
                         {/*<input className={'options-panel__word-list-selector'}*/}
                         {/*       type='radio'*/}
@@ -195,8 +188,12 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         </div>
                     </div>
 
-                    <div className={`wordlist-choice-panel ${this.activeWordListClass('JunDa')}`}
-                         onClick={()=>this.handleWordListTypeChangexxx('JunDa')}>
+                    <div className={classNames(
+                        `wordlist-choice-panel`,
+                        {'wordlist-choice-panel__active': this.state.wordListType === 'JunDa'})}
+                         onClick={() => this.handleWordListTypeChange('JunDa')}>
+                        {/*<div className={`wordlist-choice-panel ${this.activeWordListClass('JunDa')}`}*/}
+                        {/*     onClick={()=>this.handleWordListTypeChangexxx('JunDa')}>*/}
                         {/*&nbsp;*/}
                         {/*<input className={'options-panel__word-list-selector'}*/}
                         {/*       id='JunDa-word-list-selector'*/}

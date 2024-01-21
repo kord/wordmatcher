@@ -18,9 +18,10 @@ export class OptionsButton extends Component<OptionsPanelProps> {
             // html: <p>hamburger</p>,
             html: <OptionsPanel onChangeFn={this.props.onChangeFn}/>,
             width: '90%',
-            heightAuto: true,
+            // heightAuto: true,
             showCloseButton: true,
             showConfirmButton: false,
+
         });
     }
 

@@ -35,10 +35,6 @@ h2 {
     border-radius: 3vw;
 }
 
-.wordlist-choice-panel__inactive {
-    border-color: black;
-}
-
 .wordlist-choice-panel__active {
     border-color: limegreen;
 }

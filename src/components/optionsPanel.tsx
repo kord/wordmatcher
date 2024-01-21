@@ -10,7 +10,7 @@ import {
     optionsStoredNames, optionsDefaultValues
 } from "../utils/localStorage";
 import '../css/optionsPanel.css';
-import {WordListType} from "../logic/gameOptionsTypes";
+import {CharacterSetOptions, WordListType} from "../logic/gameOptionsTypes";
 import classNames from "classnames";
 
 export type OptionsPanelProps = {
@@ -81,9 +81,12 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({includeLowerHskLevels: newValue}, this.saveOptions);
     }
 
-    handleCharacterSetChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
-        const newValue = ff.target.value;
-        this.setState({characterSet: newValue}, this.saveOptions);
+    // handleCharacterSetChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
+    //     const newValue = ff.target.value;
+    //     this.setState({characterSet: newValue}, this.saveOptions);
+    // }
+    handleCharacterSetChange = (ff: CharacterSetOptions) => {
+        this.setState({characterSet: ff}, this.saveOptions);
     }
 
     handleWordListTypeChange = (ff: WordListType) => {
@@ -102,7 +105,7 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Game Length</p>
                     {/*************************************************************/}
-                    <div className={'options-panel__section'}>
+                    <div className={'options-panel__section__inner'}>
                         <label>
                             <input type="radio"
                                    value="time"
@@ -152,8 +155,8 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     <p className={'options-panel__section-name'}>Word List</p>
                     {/*************************************************************/}
                     <div className={classNames(
-                        `wordlist-choice-panel`,
-                        {'wordlist-choice-panel__active': this.state.wordListType === 'HSK'})}
+                        `options-panel__section`,
+                        {'options-panel__section__active': this.state.wordListType === 'HSK'})}
                          onClick={() => this.handleWordListTypeChange('HSK')}>
                         {/*&nbsp;*/}
                         {/*<input className={'options-panel__word-list-selector'}*/}
@@ -162,11 +165,9 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         {/*       id='HSK-word-list-selector'*/}
                         {/*       checked={this.state.wordListType === 'HSK'}*/}
                         {/*       onChange={this.handleWordListTypeChange}/>*/}
-                        <div className={'options-panel__section'}>
+                        <div className={'options-panel__section__inner'}>
                             <span>
-                                <label htmlFor={'HSK-word-list-selector'}>
-                                    HSK Level:&nbsp;
-                                </label>
+                                HSK Level:&nbsp;
                                 <select
                                     value={this.state.hskLevel}
                                     onChange={e => this.setHskLevel(e.target.value)}>
@@ -189,10 +190,10 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     </div>
 
                     <div className={classNames(
-                        `wordlist-choice-panel`,
-                        {'wordlist-choice-panel__active': this.state.wordListType === 'JunDa'})}
+                        `options-panel__section`,
+                        {'options-panel__section__active': this.state.wordListType === 'JunDa'})}
                          onClick={() => this.handleWordListTypeChange('JunDa')}>
-                        {/*<div className={`wordlist-choice-panel ${this.activeWordListClass('JunDa')}`}*/}
+                        {/*<div className={`options-panel__section ${this.activeWordListClass('JunDa')}`}*/}
                         {/*     onClick={()=>this.handleWordListTypeChangexxx('JunDa')}>*/}
                         {/*&nbsp;*/}
                         {/*<input className={'options-panel__word-list-selector'}*/}
@@ -201,11 +202,9 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         {/*       value='JunDa'*/}
                         {/*       checked={this.state.wordListType === 'JunDa'}*/}
                         {/*       onChange={this.handleWordListTypeChange}/>*/}
-                        <div className={'options-panel__section'}>
+                        <div className={'options-panel__section__inner'}>
                         <span>
-                            <label htmlFor={'JunDa-word-list-selector'}>
-                                Jun Da Most Common Characters:&nbsp;
-                            </label>
+                            Jun Da Most Common Characters:&nbsp;
                             <select
                                 value={this.state.jundaMax}
                                 onChange={e => this.setJunDaMax(e.target.value)}
@@ -219,17 +218,16 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                     {/*************************************************************/}
                     <p className={'options-panel__section-name'}>Character Set</p>
                     {/*************************************************************/}
-                    <div className={'options-panel__section'}>
-                        {[['Traditional', 'tw'], ['Simplified', 'cn']].map(lang =>
-                            <label>
-                                {lang[0]}:&nbsp;
-                                <input type="radio"
-                                       value={lang[1]}
-                                       key={lang[1]}
-                                       checked={this.state.characterSet === lang[1]}
-                                       onChange={this.handleCharacterSetChange}/>
-                            </label>)}
-                    </div>
+                    {[['Traditional', 'tw'], ['Simplified', 'cn']].map(lang =>
+                        <div className={classNames(
+                            `options-panel__section`,
+                            {'options-panel__section__active': this.state.characterSet === lang[1]})}
+                             onClick={() => this.handleCharacterSetChange(lang[1] as CharacterSetOptions)}>
+                            <div className={'options-panel__section__inner'}>
+                                {lang[0]}
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             </div>

@@ -102,9 +102,12 @@ export function generateMatcherDict(options: GameplayOptions): MatcherDict {
     let chineseStringModifier: (s: string) => string;
     switch (characterSet) {
         case "cn":
+            // All of our wordlists are coded as simplified characters.
             chineseStringModifier = (s) => s;
             break;
         case "tw":
+            // We use the OpenCC converter library to transform the default simplified characters into
+            // regionalized Taiwanese traditional characters.
             chineseStringModifier = twConverter;
             break;
     }

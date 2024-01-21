@@ -6,7 +6,8 @@ import {OptionsButton} from "./optionsButton";
 import '../css/matcherGame.scss';
 import {StartButton} from "./startButton";
 import {MatcherDict} from "../dictionaries/matcherDict";
-import {MatcherRoundObjective} from "../logic/gameOptionsTypes";
+import {GameplayOptions, MatcherRoundObjective} from "../logic/gameOptionsTypes";
+import {getAppOptionsFromLocalStorage} from "../utils/localStorage";
 
 
 interface MatcherGameProps {
@@ -16,6 +17,7 @@ interface MatcherGameState {
     loadedDictionary?: MatcherDict,
     gameActive: boolean,
     game: MatcherGameLogic,
+    rules: GameplayOptions,
 }
 
 class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
@@ -25,6 +27,7 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
             gameActive: false,
             game: new MatcherGameLogic(defaultOptions),
             // game: new MatcherGameLogic(defaultSimpTradOptions),
+            rules: getAppOptionsFromLocalStorage(),
         };
     }
 
@@ -33,7 +36,10 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
     }
 
     optionsChangeFn = () => {
-        console.log('optionsChange called')
+        this.setState({
+            rules: getAppOptionsFromLocalStorage(),
+            gameActive: false
+        })
     }
 
     selectGuess = (i: number) => {
@@ -41,8 +47,18 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
         this.forceUpdate();
     }
 
+    scoreString = () => {
+        if (this.state.gameActive) {
+            const duration = this.state.rules.duration;
+            // if (typeof duration === 'string' && duration === 'unlimited')
+            // return `${this.state.game.currentScore}/${this.state.rules.}`
+        }
+        return 'incomplete';
+    }
+
 
     render() {
+        const gameActive = this.state.gameActive;
 
         return (<>
                 <div className={'matcher-game'}>
@@ -63,8 +79,9 @@ class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
                     </div>
                 </div>
                 <div className={'game-title'}>Word Matcher</div>
-                <StartButton startFn={this.startFn                }/>
-                <OptionsButton onChangeFn={                this.optionsChangeFn}/>
+                <div className={'game-score'}>{this.state.gameActive ? this.scoreString() : ''}</div>
+                <StartButton startFn={this.startFn}/>
+                <OptionsButton onChangeFn={this.optionsChangeFn}/>
             </>
         );
     }

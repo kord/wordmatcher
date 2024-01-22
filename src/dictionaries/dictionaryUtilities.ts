@@ -8,6 +8,7 @@ import {hsk5Wordlist} from "../wordlists/hsk5";
 import {hsk6Wordlist} from "../wordlists/hsk6";
 import {GameplayOptions, HskLexicon} from "../logic/gameOptionsTypes";
 import {simplifiedTraditionalDictionary} from "./simplifiedTraditionalDictionary";
+import {junDaWordlist} from "../wordlists/junDa";
 
 const OpenCC = require('opencc-js');
 
@@ -99,7 +100,7 @@ export function generateMatcherDict(options: GameplayOptions): MatcherDict {
     }
 
     // We swap between simplified and traditional as we build the dictionary.
-    let chineseStringModifier: (s: string) => string;
+    let chineseStringModifier: (s: [string, string]) => [string, string];
     switch (characterSet) {
         case "cn":
             // All of our wordlists are coded as simplified characters.
@@ -108,18 +109,17 @@ export function generateMatcherDict(options: GameplayOptions): MatcherDict {
         case "tw":
             // We use the OpenCC converter library to transform the default simplified characters into
             // regionalized Taiwanese traditional characters.
-            chineseStringModifier = twConverter;
+            chineseStringModifier = entry => ([twConverter(entry[0]), entry[1]]);
             break;
     }
 
     if ('hskLevel' in wordlist) { // We have a HskLexicon
-        const list = getHskWordList(wordlist as HskLexicon).map(
-            entry => ([chineseStringModifier(entry[0]), entry[1]] as [string, string]));
+        const list = getHskWordList(wordlist as HskLexicon).map(chineseStringModifier);
         return new MatcherDict(wordListToMatcherInput(list));
     }
     if ('firstJunDaWord' in wordlist) { // We have JunDaLexicon
-        // TODO: When implementing, remember to use chineseStringModifier function
-        throw new Error('TaiwanPlaces not yet implemented');
+        const list = junDaWordlist.map(chineseStringModifier);
+        return new MatcherDict(wordListToMatcherInput(list));
     }
 
     // No other options for the type in wordlist

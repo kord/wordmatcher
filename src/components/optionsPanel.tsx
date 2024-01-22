@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {HskLevel} from "../dictionaries/languages";
 import {
     getStoredBool,
     getStoredNumber,
@@ -9,9 +8,10 @@ import {
     setStoredValue,
     optionsStoredNames, optionsDefaultValues
 } from "../utils/localStorage";
-import '../css/optionsPanel.css';
+import {HskLevel} from "../dictionaries/languages";
 import {CharacterSetOptions, WordListType} from "../logic/gameOptionsTypes";
 import classNames from "classnames";
+import '../css/optionsPanel.css';
 
 export type OptionsPanelProps = {
     onChangeFn?: VoidFunction,
@@ -81,10 +81,6 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         this.setState({includeLowerHskLevels: newValue}, this.saveOptions);
     }
 
-    // handleCharacterSetChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
-    //     const newValue = ff.target.value;
-    //     this.setState({characterSet: newValue}, this.saveOptions);
-    // }
     handleCharacterSetChange = (ff: CharacterSetOptions) => {
         this.setState({characterSet: ff}, this.saveOptions);
     }
@@ -158,13 +154,6 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         `options-panel__section`,
                         {'options-panel__section__active': this.state.wordListType === 'HSK'})}
                          onClick={() => this.handleWordListTypeChange('HSK')}>
-                        {/*&nbsp;*/}
-                        {/*<input className={'options-panel__word-list-selector'}*/}
-                        {/*       type='radio'*/}
-                        {/*       value='HSK'*/}
-                        {/*       id='HSK-word-list-selector'*/}
-                        {/*       checked={this.state.wordListType === 'HSK'}*/}
-                        {/*       onChange={this.handleWordListTypeChange}/>*/}
                         <div className={'options-panel__section__inner'}>
                             <span>
                                 HSK Level:&nbsp;
@@ -193,15 +182,6 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         `options-panel__section`,
                         {'options-panel__section__active': this.state.wordListType === 'JunDa'})}
                          onClick={() => this.handleWordListTypeChange('JunDa')}>
-                        {/*<div className={`options-panel__section ${this.activeWordListClass('JunDa')}`}*/}
-                        {/*     onClick={()=>this.handleWordListTypeChangexxx('JunDa')}>*/}
-                        {/*&nbsp;*/}
-                        {/*<input className={'options-panel__word-list-selector'}*/}
-                        {/*       id='JunDa-word-list-selector'*/}
-                        {/*       type='radio'*/}
-                        {/*       value='JunDa'*/}
-                        {/*       checked={this.state.wordListType === 'JunDa'}*/}
-                        {/*       onChange={this.handleWordListTypeChange}/>*/}
                         <div className={'options-panel__section__inner'}>
                         <span>
                             Jun Da Most Common Characters:&nbsp;
@@ -222,6 +202,7 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
                         <div className={classNames(
                             `options-panel__section`,
                             {'options-panel__section__active': this.state.characterSet === lang[1]})}
+                             key={lang[1]}
                              onClick={() => this.handleCharacterSetChange(lang[1] as CharacterSetOptions)}>
                             <div className={'options-panel__section__inner'}>
                                 {lang[0]}

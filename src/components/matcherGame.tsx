@@ -8,13 +8,14 @@ import {StartButton} from "./startButton";
 import {MatcherDict} from "../dictionaries/matcherDict";
 import {GameplayOptions, MatcherRoundObjective} from "../logic/gameOptionsTypes";
 import {getAppOptionsFromLocalStorage} from "../utils/localStorage";
+import {generateMatcherDict} from "../dictionaries/dictionaryUtilities";
 
 
 interface MatcherGameProps {
 }
 
 interface MatcherGameState {
-    loadedDictionary?: MatcherDict,
+    // loadedDictionary: MatcherDict,
     gameActive: boolean,
     game: MatcherGameLogic,
     rules: GameplayOptions,
@@ -23,11 +24,13 @@ interface MatcherGameState {
 class MatcherGame extends Component<MatcherGameProps, MatcherGameState> {
     constructor(props: MatcherGameProps) {
         super(props);
+        const rules = getAppOptionsFromLocalStorage();
         this.state = {
+            // loadedDictionary: generateMatcherDict(rules),
             gameActive: false,
             game: new MatcherGameLogic(defaultOptions),
             // game: new MatcherGameLogic(defaultSimpTradOptions),
-            rules: getAppOptionsFromLocalStorage(),
+            rules: rules,
         };
     }
 

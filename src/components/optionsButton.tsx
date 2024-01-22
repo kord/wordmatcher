@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, PureComponent} from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import {OptionsPanel, OptionsPanelProps} from "./optionsPanel";
@@ -6,7 +6,7 @@ import '../css/buttons.css';
 
 const MySwal = withReactContent(Swal);
 
-export class OptionsButton extends Component<OptionsPanelProps> {
+export class OptionsButton extends PureComponent<OptionsPanelProps> {
     constructor(props: OptionsPanelProps) {
         super(props);
     }

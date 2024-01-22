@@ -14,7 +14,7 @@ import classNames from "classnames";
 import '../css/optionsPanel.css';
 
 export type OptionsPanelProps = {
-    onChangeFn?: VoidFunction,
+    onChangeFn: VoidFunction,
 };
 
 export interface OptionsPanelState {
@@ -48,7 +48,6 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
     }
 
     saveOptions = () => {
-        console.log('Asked to save options.');
         setStoredValue(optionsStoredNames.wordListType, this.state.wordListType);
         setStoredNumber(optionsStoredNames.hskLevel, this.state.hskLevel);
         setStoredNumber(optionsStoredNames.jundaMin, this.state.jundaMin);
@@ -58,39 +57,48 @@ export class OptionsPanel extends Component<OptionsPanelProps, OptionsPanelState
         setStoredValue(optionsStoredNames.gameDurationType, this.state.gameDurationType);
         setStoredNumber(optionsStoredNames.gameDurationQuestions, this.state.gameDurationQuestions);
         setStoredNumber(optionsStoredNames.gameDurationTimeSeconds, this.state.gameDurationTimeSeconds);
+        this.props.onChangeFn();
     }
 
     setHskLevel = (level: string) => {
+        if (this.state.hskLevel === +level) return;
         this.setState({hskLevel: +level}, this.saveOptions);
     }
 
-    setJunDaMax = (level: string) => {
-        this.setState({jundaMax: +level}, this.saveOptions);
+    setJunDaMax = (junDaMax: string) => {
+        if (this.state.jundaMax === +junDaMax) return;
+        this.setState({jundaMax: +junDaMax}, this.saveOptions);
     }
 
     setGameDurationQuestions = (gameDurationQuestions: string) => {
+        if (this.state.gameDurationQuestions === +gameDurationQuestions) return;
         this.setState({gameDurationQuestions: +gameDurationQuestions}, this.saveOptions);
     }
 
     setGameDurationTimeSeconds = (gameDurationTimeSeconds: string) => {
+        if (this.state.gameDurationTimeSeconds === +gameDurationTimeSeconds) return;
         this.setState({gameDurationTimeSeconds: +gameDurationTimeSeconds}, this.saveOptions);
     }
 
     handleChangeIncludeLowerHskLevels: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
         const newValue = ff.target.checked;
+        if (this.state.includeLowerHskLevels === newValue) return;
         this.setState({includeLowerHskLevels: newValue}, this.saveOptions);
     }
 
     handleCharacterSetChange = (ff: CharacterSetOptions) => {
+        if (this.state.characterSet === ff) return;
         this.setState({characterSet: ff}, this.saveOptions);
     }
 
     handleWordListTypeChange = (ff: WordListType) => {
+        if (this.state.wordListType === ff) return;
         this.setState({wordListType: ff}, this.saveOptions);
     }
 
     handleGameDurationTypeChange: React.ChangeEventHandler<HTMLInputElement> = (ff) => {
         const newValue = ff.target.value;
+        if (this.state.gameDurationType === newValue) return;
         this.setState({gameDurationType: newValue}, this.saveOptions);
     }
 

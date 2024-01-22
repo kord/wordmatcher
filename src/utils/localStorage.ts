@@ -1,6 +1,6 @@
 import {HskLevel} from "../dictionaries/languages";
 import {
-    GameplayOptions,
+    MatcherGameDictionaryOptions,
     CharacterSetOptions,
     GameDuration,
     HskLexicon,
@@ -24,7 +24,7 @@ export const optionsStoredNames = {
     gameDurationTimeSeconds: 'options-gameDurationTimeSeconds',
 }
 
-export const optionsDefaultValues : OptionsPanelState = {
+export const optionsDefaultValues: OptionsPanelState = {
     wordListType: 'HSK',
     hskLevel: HskLevel.HSK1,
     jundaMin: 1,
@@ -72,14 +72,40 @@ export function setStoredBool(valueName: string, value: boolean) {
     localStorage.setItem(key, value.toString());
 }
 
-function getStoredCharacterSet(): CharacterSetOptions  {
+function getStoredCharacterSet(): CharacterSetOptions {
     const valueName = optionsStoredNames.characterSet;
     const value = getStoredValue(valueName);
     if (value === 'tw' || value == 'cn') return value;
     return optionsDefaultValues.characterSet as CharacterSetOptions;
 }
 
-function getStoredGameDuration(): GameDuration {
+function getStoredWordListType(): WordListType {
+    const wordListType = getStoredValue(optionsStoredNames.wordListType);
+    if (['HSK', 'JunDa', 'SimpTrad', 'TaiwanPlaces'].some(t => t === wordListType))
+        return wordListType as WordListType;
+    return optionsDefaultValues.wordListType as WordListType;
+}
+
+function getStoredHskOptions(): HskLexicon {
+    const level = getStoredNumber(optionsStoredNames.hskLevel) || optionsDefaultValues.hskLevel;
+    const includeLower = getStoredBool(optionsStoredNames.includeLowerHskLevels) || optionsDefaultValues.includeLowerHskLevels;
+    return {hskLevel: level, includeLowerLevels: includeLower};
+}
+
+function getStoredJunDaOptions(): JunDaLexicon {
+    const jundaMin = getStoredNumber(optionsStoredNames.jundaMin) || optionsDefaultValues.jundaMin;
+    const jundaMax = getStoredNumber(optionsStoredNames.jundaMax) || optionsDefaultValues.jundaMax;
+    return {firstJunDaWord: jundaMin, lastJunDaWord: jundaMax};
+}
+
+function getStoredWordListSelection(): WordListOptions {
+    const wordListType = getStoredWordListType();
+    if (wordListType === 'HSK') return getStoredHskOptions();
+    else if (wordListType === 'JunDa') return getStoredJunDaOptions();
+    else return wordListType;
+}
+
+export function getStoredGameDuration(): GameDuration {
     const gameDurationType = getStoredValue(optionsStoredNames.gameDurationType);
     if (gameDurationType === 'unlimited') return 'unlimited';
     if (gameDurationType === 'time') {
@@ -97,35 +123,8 @@ function getStoredGameDuration(): GameDuration {
     return optionsDefaultValues.gameDurationType as GameDuration;
 }
 
-function getStoredWordListType() : WordListType {
-    const wordListType = getStoredValue(optionsStoredNames.wordListType);
-    if (['HSK' , 'JunDa' , 'SimpTrad' , 'TaiwanPlaces'].some(t => t === wordListType))
-        return wordListType as WordListType;
-    return optionsDefaultValues.wordListType as WordListType;
-}
-
-function getStoredHskOptions() : HskLexicon {
-    const level = getStoredNumber(optionsStoredNames.hskLevel) || optionsDefaultValues.hskLevel;
-    const includeLower = getStoredBool(optionsStoredNames.includeLowerHskLevels) || optionsDefaultValues.includeLowerHskLevels;
-    return {hskLevel: level, includeLowerLevels: includeLower};
-}
-
-function getStoredJunDaOptions() : JunDaLexicon {
-    const jundaMin = getStoredNumber(optionsStoredNames.jundaMin) || optionsDefaultValues.jundaMin;
-    const jundaMax = getStoredNumber(optionsStoredNames.jundaMax) || optionsDefaultValues.jundaMax;
-    return {firstJunDaWord: jundaMin, lastJunDaWord: jundaMax};
-}
-
-function getStoredWordListSelection() : WordListOptions {
-    const wordListType = getStoredWordListType();
-    if (wordListType === 'HSK') return getStoredHskOptions();
-    else if (wordListType === 'JunDa') return getStoredJunDaOptions();
-    else return wordListType;
-}
-
-export function getAppOptionsFromLocalStorage(): GameplayOptions {
+export function getMatcherGameDictionaryOptionsFromLocalStorage(): MatcherGameDictionaryOptions {
     return {
-        duration: getStoredGameDuration(),
         wordlist: getStoredWordListSelection(),
         characterSet: getStoredCharacterSet(),
     }

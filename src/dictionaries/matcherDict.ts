@@ -1,5 +1,7 @@
 import {Lang} from "./languages";
 
+const warnLength = 10;
+
 export type WordEntry = {
     lang: Lang,
     word: string,
@@ -43,7 +45,7 @@ export class MatcherDict {
         // This is relevant for chinese since pinyin matching tries to find entries with the same length and we
         // need enough entries to populate the options.
         this.l1length.forEach((k, v) => {
-            if (k.length < 10) console.error(`Length ${v} of lang ${k[0].lang} only has ${k.length} entries.`);
+            if (k.length < warnLength) console.error(`Length ${v} of lang ${Lang[k[0].lang]} only has ${k.length} entries.`);
         });
     }
 
@@ -68,10 +70,16 @@ export class MatcherDict {
         let table : Map<number, WordEntry[]>;
         if (lang === this.lang1) table = this.l1length;
         else if (lang === this.lang2) table = this.l2length;
-        else console.assert(false, 'randomLength called for absent language.');
+        else throw new Error('randomLength called for absent language.');
 
         const list = table!.get(length)!;
-        console.assert(list.length > 4);
+
+        if (list.length  < warnLength) {
+            if (lang === this.lang1) return this.random()[0];
+            else if (lang === this.lang2) return this.random()[1];
+
+            throw new Error('not enough words of proper length AND absent language.');
+        }
         const index = Math.floor(Math.random() * list.length);
         return list[index];
     }

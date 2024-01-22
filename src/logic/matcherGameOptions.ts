@@ -5,19 +5,19 @@ import {MatcherGameOptions, MatcherRoundObjective} from "./gameOptionsTypes";
 
 export const defaultOptions: MatcherGameOptions = {
     dictionary: getHskMatcherDict({hskLevel: HskLevel.HSK1}),
-    gameLength: 'unlimited',
+    duration: 'unlimited',
     optionCount: 4,
     objectives: [
         {objective: MatcherRoundObjective.FirstLangToSecondLang, relativeWeight: 1},
         {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: 1},
-        {objective: MatcherRoundObjective.FirstLangToPinyin, relativeWeight: .25},
-        {objective: MatcherRoundObjective.PinyinToFirstLang, relativeWeight: .25},
+        {objective: MatcherRoundObjective.FirstLangToPinyin, relativeWeight: 1},
+        {objective: MatcherRoundObjective.PinyinToFirstLang, relativeWeight: 1},
     ]
 }
 
 export const defaultSimpTradOptions: MatcherGameOptions = {
     dictionary: simplifiedTraditionalDictionary,
-    gameLength: 'unlimited',
+    duration: 'unlimited',
     optionCount: 4,
     objectives: [
         {objective: MatcherRoundObjective.SecondLangToFirstLang, relativeWeight: .5},

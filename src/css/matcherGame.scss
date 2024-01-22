@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&family=Roboto:wght@900&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&family=Noto+Serif+TC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&family=Noto+Serif+TC:wght@500&display=swap');
 
 .matcher-game {
   text-align: center;
@@ -19,6 +20,17 @@
   font-size: calc(var(--top-space) * var(--title-height));
 }
 
+.game-score {
+  position: absolute;
+}
+
+.game-score__previous-wrong {
+  background-color: indianred;
+}
+
+.game-score__previous-correct {
+}
+
 //
 //.options-bar {
 //  background-color: blue;
@@ -30,7 +42,7 @@
 //}
 
 .game-body {
-  background-color: green;
+  //background-color: green;
   position: absolute;
   top: var(--top-space);
   left: 0;
@@ -64,7 +76,8 @@
   width: var(--content-width);
   margin-inline: auto;
 
-  --available-height: calc(100vh - var(--default-margin) - var(--gutter) - var(--top-space) - (var(--response-box-dimensions) * var(--response-rows)));
+  //--available-height: calc(100vh - var(--default-margin) - var(--gutter) - var(--top-space) - (var(--response-box-dimensions) * var(--response-rows)));
+  --available-height: calc(100vh - var(--default-margin) - 20px - var(--top-space) - (var(--response-box-dimensions) * var(--response-rows)));
 
   font-size: clamp(16px, 50px, 220px);
 
@@ -91,7 +104,6 @@
   position: absolute;
   bottom: 5vw;
 
-
   display: grid;
   width: 100%;
   max-width: var(--content-width);
@@ -103,22 +115,23 @@
 }
 
 .quiz-response-option {
-  // --character-count: 2;
-  // --string-width: 2;
-
   border: black solid medium;
   border-radius: 15px;
 
   cursor: pointer;
 
-  //
-
+  background-color: rgb(181, 226, 80);
   //align-content: space-evenly;
+}
+
+// This works better than hover if we're on a touchscreen
+.quiz-response-option:active {
+  background-color: lightblue;
 }
 
 .quiz-response-option.quiz-response-option__ChineseSimplified,
 .quiz-response-option.quiz-response-option__ChineseTraditional {
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif SC', serif, 'Noto Serif TC', serif;
   font-size: calc(var(--response-box-dimensions) / clamp(1, var(--character-count) * 1.35, 10));
   line-height: calc(var(--response-box-dimensions) / 1.15);
 
@@ -126,9 +139,6 @@
 
 .quiz-response-option.quiz-response-option__English,
 .quiz-response-option.quiz-response-option__Pinyin {
+  font-family: Roboto, sans-serif;
   font-size: clamp(5vw, calc(7 * var(--response-box-dimensions) / var(--string-width)), 32vw);
-}
-
-.quiz-response-option:hover {
-  background-color: darkblue;
 }

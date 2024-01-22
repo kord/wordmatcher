@@ -6,9 +6,11 @@ import {hsk3Wordlist} from "../wordlists/hsk3";
 import {hsk4Wordlist} from "../wordlists/hsk4";
 import {hsk5Wordlist} from "../wordlists/hsk5";
 import {hsk6Wordlist} from "../wordlists/hsk6";
-import {GameplayOptions, HskLexicon, MatcherGameOptions} from "../logic/gameOptionsTypes";
+import {MatcherGameDictionaryOptions, HskLexicon, MatcherGameOptions} from "../logic/gameOptionsTypes";
 import {simplifiedTraditionalDictionary} from "./simplifiedTraditionalDictionary";
 import {junDaWordlist} from "../wordlists/junDa";
+import {getStoredGameDuration} from "../utils/localStorage";
+import {defaultOptions} from "../logic/matcherGameOptions";
 
 const OpenCC = require('opencc-js');
 
@@ -92,7 +94,7 @@ export const simplifiedToTwTraditional = (word: WordEntry) => {
 
 // Build the dictionary for the given GameplayOptions, which is the sum
 // total of specifications in the options menu.
-function generateMatcherDict(options: GameplayOptions): MatcherDict {
+function generateMatcherDict(options: MatcherGameDictionaryOptions): MatcherDict {
     const {wordlist, characterSet} = options
     switch (wordlist) {
         case "SimpTrad":
@@ -123,7 +125,7 @@ function generateMatcherDict(options: GameplayOptions): MatcherDict {
     }
     if ('firstJunDaWord' in wordlist) { // We have JunDaLexicon
         const maxword = Math.max(wordlist.lastJunDaWord, junDaWordlist.length);
-        const list = junDaWordlist.slice(wordlist.firstJunDaWord-1, maxword-1).map(chineseStringModifier);
+        const list = junDaWordlist.slice(wordlist.firstJunDaWord - 1, maxword - 1).map(chineseStringModifier);
         const dictionaryName = `JunDa ${wordlist.firstJunDaWord}-${wordlist.lastJunDaWord}`;
         return new MatcherDict(dictionaryName, wordListToMatcherInput(list));
     }
@@ -133,12 +135,13 @@ function generateMatcherDict(options: GameplayOptions): MatcherDict {
 }
 
 
-export function generateMatcherGameOptions(options: GameplayOptions) : MatcherGameOptions {
+export function generateMatcherGameOptions(options: MatcherGameDictionaryOptions): MatcherGameOptions {
     const dictionary = generateMatcherDict(options);
+    const duration = getStoredGameDuration();
     return {
-        gameLength: options.duration,
-        optionCount:4,
-        objectives: [],
+        duration: duration,
+        optionCount: 4,
+        objectives: defaultOptions.objectives,
         dictionary: dictionary,
     };
 }

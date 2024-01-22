@@ -36,7 +36,7 @@ export class QuizResponseOption extends Component<QuizResponseOptionProps, QuizR
                  onClick={() => this.props.onClick(this.props.optionNumber)}
                  style={{
                      '--character-count': this.props.entry.word.length,
-                     '--string-width': getTextWidth(this.props.entry.word, 'Times New Roman'),
+                     '--string-width': getTextWidth(this.props.entry.word, 'Roboto'),
             } as React.CSSProperties}>
                 {this.props.entry.word}
                 {/*{getTextWidth(this.props.entry.word, 'Times New Roman')}*/}

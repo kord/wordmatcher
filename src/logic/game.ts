@@ -1,11 +1,8 @@
-import {
-    defaultOptions
-} from "./matcherGameOptions";
+import {defaultOptions} from "./matcherGameOptions";
 import {WordEntry} from "../dictionaries/matcherDict";
 import {Lang} from "../dictionaries/languages";
 import {pinyin} from "pinyin-pro";
 import {
-    GameplayOptions,
     MatcherGameOptions,
     MatcherRoundData,
     MatcherRoundObjective,
@@ -32,35 +29,61 @@ function shuffle(array: any[]) {
     return array;
 }
 
+export type GameScore = {
+    right: number,
+    wrong: number,
+    attempted: number,
+}
 
 export class MatcherGameLogic {
     options: MatcherGameOptions;
     currentRound: MatcherRoundData;
     roundHistory: MatcherRoundRecord[];
+    correctAnswers: number;
+    incorrectAnswers: number;
+    lastResult?: MatcherRoundResult;
 
     constructor(options: Partial<MatcherGameOptions> = {}) {
         this.options = {...defaultOptions, ...options};
-        if (typeof this.options.gameLength !== "string" && 'count' in this.options.gameLength)
-            if (this.options.gameLength.units === "rounds" && this.options.gameLength.count < 1)
-                throw new Error('Game length needs to be positive.')
+        if (typeof this.options.duration !== "string" && 'count' in this.options.duration) {
+            if (this.options.duration.units === "rounds" && this.options.duration.count < 1)
+                throw new Error('Game length needs to be positive.');
+        }
 
         this.roundHistory = [];
+        this.correctAnswers = 0;
+        this.incorrectAnswers = 0;
 
         // Normalize the objective weightings to sum to 1.
         let totalObjectiveWeight = 0;
         this.options.objectives.forEach(o => totalObjectiveWeight += o.relativeWeight);
         this.options.objectives.forEach(o => o.relativeWeight /= totalObjectiveWeight);
+        if (totalObjectiveWeight <= 0)
+            throw new Error(`Objectives configured incorrectly: ${this.options.objectives}`)
 
         this.currentRound = this.getNewRandomRound();
-        console.log(this.options.objectives);
+    }
+
+    public currentScore(): GameScore {
+        return {
+            attempted: this.roundHistory.length,
+            right: this.correctAnswers,
+            wrong: this.incorrectAnswers,
+        }
     }
 
     public applyGuessForCurrentRound(choice: number) {
+        const result = choice === this.currentRound.answerIndex ?
+            MatcherRoundResult.Success : MatcherRoundResult.Failure;
         this.roundHistory.push({
             data: this.currentRound,
             userSelection: choice,
-            result: choice === this.currentRound.answerIndex ? MatcherRoundResult.Success : MatcherRoundResult.Failure,
+            result: result,
         });
+        this.lastResult = result;
+        if (result === MatcherRoundResult.Success) this.correctAnswers++;
+        if (result === MatcherRoundResult.Failure) this.incorrectAnswers++;
+
         this.currentRound = this.getNewRandomRound();
     }
 

@@ -5,6 +5,7 @@ import {WordEntry} from "../dictionaries/matcherDict";
 import {Lang} from "../dictionaries/languages";
 import {pinyin} from "pinyin-pro";
 import {
+    GameplayOptions,
     MatcherGameOptions,
     MatcherRoundData,
     MatcherRoundObjective,
@@ -39,6 +40,10 @@ export class MatcherGameLogic {
 
     constructor(options: Partial<MatcherGameOptions> = {}) {
         this.options = {...defaultOptions, ...options};
+        if (typeof this.options.gameLength !== "string" && 'count' in this.options.gameLength)
+            if (this.options.gameLength.units === "rounds" && this.options.gameLength.count < 1)
+                throw new Error('Game length needs to be positive.')
+
         this.roundHistory = [];
 
         // Normalize the objective weightings to sum to 1.
@@ -48,6 +53,15 @@ export class MatcherGameLogic {
 
         this.currentRound = this.getNewRandomRound();
         console.log(this.options.objectives);
+    }
+
+    public applyGuessForCurrentRound(choice: number) {
+        this.roundHistory.push({
+            data: this.currentRound,
+            userSelection: choice,
+            result: choice === this.currentRound.answerIndex ? MatcherRoundResult.Success : MatcherRoundResult.Failure,
+        });
+        this.currentRound = this.getNewRandomRound();
     }
 
     private getRandomObjective(): MatcherRoundObjective {
@@ -62,15 +76,6 @@ export class MatcherGameLogic {
         }
         console.error('getRandomObjective failed for some stupid reason.');
         return MatcherRoundObjective.FirstLangToSecondLang;
-    }
-
-    public applyGuessForCurrentRound(choice: number) {
-        this.roundHistory.push({
-            data: this.currentRound,
-            userSelection: choice,
-            result: choice === this.currentRound.answerIndex ? MatcherRoundResult.Success : MatcherRoundResult.Failure,
-        });
-        this.currentRound = this.getNewRandomRound();
     }
 
     private getNewRandomRound(): MatcherRoundData {

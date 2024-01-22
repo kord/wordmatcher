@@ -3,12 +3,10 @@ import {MatcherGameLogic} from "../logic/game";
 import {defaultOptions, defaultSimpTradOptions} from "../logic/matcherGameOptions";
 import {QuizResponseOption} from "./quizResponseOption";
 import {OptionsButton} from "./optionsButton";
-import '../css/matcherGame.scss';
 import {StartButton} from "./startButton";
-import {MatcherDict} from "../dictionaries/matcherDict";
-import {GameplayOptions, MatcherRoundObjective} from "../logic/gameOptionsTypes";
+import {GameplayOptions} from "../logic/gameOptionsTypes";
 import {getAppOptionsFromLocalStorage} from "../utils/localStorage";
-import {generateMatcherDict} from "../dictionaries/dictionaryUtilities";
+import '../css/matcherGame.scss';
 
 
 interface MatcherGameProps {

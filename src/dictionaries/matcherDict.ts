@@ -7,6 +7,8 @@ export type WordEntry = {
 }
 
 export class MatcherDict {
+    name: string;
+
     lang1: Lang;
     lang2: Lang;
 
@@ -18,8 +20,10 @@ export class MatcherDict {
     l1length: Map<number, WordEntry[]>;
     l2length: Map<number, WordEntry[]>;
 
-    constructor(entries: Array<[WordEntry, WordEntry]>) {
+    constructor(name: string, entries: Array<[WordEntry, WordEntry]>) {
         console.assert(entries.length > 10, 'Cannot initialize dictionary with a very short word list.');
+
+        this.name = name;
         this.entries = entries;
         this.lang1 = entries[0][0].lang;
         this.lang2 = entries[0][1].lang;

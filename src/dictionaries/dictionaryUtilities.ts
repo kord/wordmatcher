@@ -6,7 +6,7 @@ import {hsk3Wordlist} from "../wordlists/hsk3";
 import {hsk4Wordlist} from "../wordlists/hsk4";
 import {hsk5Wordlist} from "../wordlists/hsk5";
 import {hsk6Wordlist} from "../wordlists/hsk6";
-import {GameplayOptions, HskLexicon} from "../logic/gameOptionsTypes";
+import {GameplayOptions, HskLexicon, MatcherGameOptions} from "../logic/gameOptionsTypes";
 import {simplifiedTraditionalDictionary} from "./simplifiedTraditionalDictionary";
 import {junDaWordlist} from "../wordlists/junDa";
 
@@ -57,8 +57,11 @@ function getHskWordList(hskOptions: HskLexicon): [string, string][] {
     }
 }
 
+// TODO: remove
 export function getHskMatcherDict(hskOptions: HskLexicon): MatcherDict {
-    return new MatcherDict(wordListToMatcherInput(getHskWordList(hskOptions)));
+    const dictName = `HSK ${hskOptions.includeLowerLevels ? '1-' : ''}${hskOptions.hskLevel}`
+    const list = getHskWordList(hskOptions);
+    return new MatcherDict(dictName, wordListToMatcherInput(list));
 }
 
 
@@ -89,7 +92,7 @@ export const simplifiedToTwTraditional = (word: WordEntry) => {
 
 // Build the dictionary for the given GameplayOptions, which is the sum
 // total of specifications in the options menu.
-export function generateMatcherDict(options: GameplayOptions): MatcherDict {
+function generateMatcherDict(options: GameplayOptions): MatcherDict {
     const {wordlist, characterSet} = options
     switch (wordlist) {
         case "SimpTrad":
@@ -114,14 +117,28 @@ export function generateMatcherDict(options: GameplayOptions): MatcherDict {
     }
 
     if ('hskLevel' in wordlist) { // We have a HskLexicon
+        const dictName = `HSK ${wordlist.includeLowerLevels ? '1-' : ''}${wordlist.hskLevel}`
         const list = getHskWordList(wordlist as HskLexicon).map(chineseStringModifier);
-        return new MatcherDict(wordListToMatcherInput(list));
+        return new MatcherDict(dictName, wordListToMatcherInput(list));
     }
     if ('firstJunDaWord' in wordlist) { // We have JunDaLexicon
-        const list = junDaWordlist.map(chineseStringModifier);
-        return new MatcherDict(wordListToMatcherInput(list));
+        const maxword = Math.max(wordlist.lastJunDaWord, junDaWordlist.length);
+        const list = junDaWordlist.slice(wordlist.firstJunDaWord-1, maxword-1).map(chineseStringModifier);
+        const dictionaryName = `JunDa ${wordlist.firstJunDaWord}-${wordlist.lastJunDaWord}`;
+        return new MatcherDict(dictionaryName, wordListToMatcherInput(list));
     }
 
     // No other options for the type in wordlist
     throw new Error('TaiwanPlaces not yet implemented');
+}
+
+
+export function generateMatcherGameOptions(options: GameplayOptions) : MatcherGameOptions {
+    const dictionary = generateMatcherDict(options);
+    return {
+        gameLength: options.duration,
+        optionCount:4,
+        objectives: [],
+        dictionary: dictionary,
+    };
 }

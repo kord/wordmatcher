@@ -921,8 +921,12 @@ const simplifiedTraditionalWords: [WordEntry, WordEntry][] =
         ['龄', '齡'],
         ['龙', '龍'],
         ['龟', '龜'],
-        ['泻', '瀉'],].map(words => [
+        ['泻', '瀉'],
+    ].map(words => [
         {lang: Lang.ChineseSimplified, word: words[0]},
         {lang: Lang.ChineseTraditional, word: words[1]}]);
 
-export const simplifiedTraditionalDictionary = new MatcherDict(simplifiedTraditionalWords);
+export const simplifiedTraditionalDictionary =
+    new MatcherDict(
+        'Simplified/Traditional Differences',
+        simplifiedTraditionalWords);
